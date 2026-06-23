@@ -6,20 +6,26 @@
     <title>Gestión y Soporte TI — Camping 44</title>
     <style>
         :root {
-            --bg-page: #f8fafc;
+            --bg-page: #f4f6f8;
             --bg-surface: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --c44-green: #1b5e20;
+            --c44-green-dark: #0f3813;
             --c44-green-light: #e8f5e9;
             --c44-orange: #e65100;
+            --c44-orange-light: #fff3e0;
             --border-color: #e2e8f0;
+            --radius-lg: 14px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --transition: all 0.2s ease-in-out;
             
-            /* Badges de estado */
-            --b-resuelto-bg: #dcfce7; --b-resuelto-txt: #166534;
-            --b-analisis-bg: #fef9c3; --b-analisis-txt: #854d0e;
-            --b-espera-bg: #f3e8ff;   --b-espera-txt: #6b21a8;
-            --b-nuevo-bg: #fee2e2;    --b-nuevo-txt: #991b1b;
+            /* Badges de estado modernos */
+            --b-resuelto-bg: #dcfce7; --b-resuelto-txt: #15803d;
+            --b-analisis-bg: #fef9c3; --b-analisis-txt: #a16207;
+            --b-espera-bg: #f3e8ff;   --b-espera-txt: #7e22ce;
+            --b-nuevo-bg: #fee2e2;    --b-nuevo-txt: #b91c1c;
         }
 
         * {
@@ -32,35 +38,51 @@
         body {
             background-color: var(--bg-page);
             color: var(--text-main);
-            padding: 28px 24px;
-            line-height: 1.45;
+            padding: 32px 24px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
         .dashboard {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
         }
 
-        /* 1. HEADER & CONTROLES DE PRESENTACIÓN */
+        /* 1. HEADER & LOGO PANEL */
         .header-panel {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px 28px;
+            border-radius: var(--radius-lg);
+            padding: 24px 32px;
             margin-bottom: 24px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            gap: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01);
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .company-logo {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            border-right: 2px solid var(--border-color);
+            padding-right: 20px;
         }
 
         .title-area h1 {
             font-size: 24px;
             font-weight: 700;
-            color: var(--c44-green);
+            color: var(--c44-green-dark);
             margin-bottom: 4px;
+            letter-spacing: -0.5px;
         }
 
         .title-area p {
@@ -79,17 +101,23 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: #f1f5f9;
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            padding: 8px 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .control-group:focus-within {
+            border-color: var(--c44-green);
+            box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.12);
+            background: var(--bg-surface);
         }
 
         .control-group label {
             font-size: 13px;
             font-weight: 600;
-            color: #334155;
-            cursor: pointer;
+            color: #475569;
         }
 
         .control-group select, .control-group input {
@@ -97,22 +125,26 @@
             border: none;
             font-size: 14px;
             font-weight: 600;
-            color: var(--c44-green);
+            color: var(--text-main);
             outline: none;
             cursor: pointer;
+        }
+
+        .control-group select {
+            color: var(--c44-green);
+            padding-right: 4px;
         }
 
         .control-group input {
             cursor: text;
             font-weight: 400;
-            color: var(--text-main);
-            width: 170px;
+            width: 180px;
         }
 
-        /* 2. TARJETAS DE INDICADORES (KPIs DINÁMICOS) */
+        /* 2. KPIs CARDS */
         .kpi-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
@@ -120,27 +152,45 @@
         .kpi-card {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            transition: transform 0.15s ease;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        .kpi-card:hover { transform: translateY(-2px); }
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--c44-green);
+        }
+
+        .kpi-card.orange::before { background-color: var(--c44-orange); }
+
+        .kpi-card:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.04);
+        }
 
         .kpi-label {
-            font-size: 12.5px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.75px;
             color: var(--text-muted);
         }
 
         .kpi-num {
-            font-size: 34px;
-            font-weight: 700;
-            color: var(--c44-green);
-            margin: 4px 0;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--c44-green-dark);
+            margin: 6px 0;
+            line-height: 1;
         }
 
         .kpi-card.orange .kpi-num { color: var(--c44-orange); }
@@ -155,16 +205,16 @@
             margin-bottom: 24px;
         }
 
-        @media(max-width: 900px) {
+        @media(max-width: 992px) {
             .visual-summary-grid { grid-template-columns: 1fr; }
         }
 
         .chart-box {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
             display: flex;
             flex-direction: column;
         }
@@ -172,51 +222,59 @@
         .chart-header {
             font-size: 15px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             color: var(--text-main);
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .css-bar-chart {
             display: flex;
             align-items: flex-end;
             justify-content: space-around;
-            height: 140px;
+            height: 160px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #cbd5e1;
-            gap: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            gap: 24px;
             flex-grow: 1;
+            margin-top: 15px;
         }
 
         .bar-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-grow: 1;
             height: 100%;
             justify-content: flex-end;
         }
 
         .bar {
-            width: 48px;
+            width: 100%;
+            max-width: 64px;
             background-color: #cbd5e1;
             border-radius: 6px 6px 0 0;
-            transition: all 0.4s ease;
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
             position: relative;
             display: flex;
             justify-content: center;
         }
 
-        .bar.active { background-color: var(--c44-green); }
+        .bar.active { 
+            background: linear-gradient(180deg, var(--c44-green) 0%, var(--c44-green-dark) 100%); 
+        }
 
         .bar-val {
             position: absolute;
-            top: -22px;
+            top: -26px;
             font-size: 13px;
             font-weight: 700;
-            color: #475569;
+            color: var(--text-main);
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .bar-item span {
@@ -228,7 +286,7 @@
         .priority-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             justify-content: center;
             flex-grow: 1;
         }
@@ -239,21 +297,21 @@
             gap: 12px;
         }
 
-        .p-name { width: 70px; font-size: 13px; font-weight: 600; }
-        .p-track { flex-grow: 1; height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
-        .p-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
-        .p-fill.critica { background: #ef4444; width: 28.5%; }
-        .p-fill.alta { background: #f97316; width: 47.6%; }
-        .p-fill.media { background: #3b82f6; width: 23.8%; }
-        .p-count { font-size: 13px; font-weight: 700; width: 30px; text-align: right; }
+        .p-name { width: 75px; font-size: 13px; font-weight: 600; color: #475569;}
+        .p-track { flex-grow: 1; height: 12px; background: #f1f5f9; border-radius: 6px; overflow: hidden; }
+        .p-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease-out; }
+        .p-fill.critica { background: #ef4444; }
+        .p-fill.alta { background: #f97316; }
+        .p-fill.media { background: #3b82f6; }
+        .p-count { font-size: 13px; font-weight: 700; width: 35px; text-align: right; color: var(--text-main); }
 
-        /* 4. TABLA PRINCIPAL */
+        /* 4. TABLA DE TICKETS INTERACTIVA */
         .table-panel {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
             margin-bottom: 24px;
         }
 
@@ -266,38 +324,52 @@
         }
 
         th {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             color: #475569;
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 14px 16px;
+            letter-spacing: 0.5px;
+            padding: 16px;
             border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         td {
-            padding: 14px 16px;
+            padding: 16px;
             border-bottom: 1px solid var(--border-color);
-            font-size: 13.5px;
+            font-size: 14px;
             vertical-align: top;
         }
 
-        tr:hover { background-color: #f8fafc; }
+        tr.t-row { transition: var(--transition); }
+        tr.t-row:hover { background-color: #f8fafc; }
 
-        .ticket-num { font-weight: 700; font-family: monospace; font-size: 13px; color: var(--c44-green); }
+        .ticket-num { 
+            font-weight: 700; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 13px; 
+            color: var(--c44-green);
+            background: var(--c44-green-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
         
-        .p-pill { font-weight: 700; font-size: 12px; }
-        .p-pill.Crítica { color: #dc2626; }
-        .p-pill.Alta { color: #ea580c; }
-        .p-pill.Media { color: #2563eb; }
+        .p-pill { font-weight: 700; font-size: 12px; padding: 2px 6px; border-radius: 4px; display: inline-block;}
+        .p-pill.Crítica { color: #b91c1c; background: #fee2e2; }
+        .p-pill.Alta { color: #c2410c; background: #ffedd5; }
+        .p-pill.Media { color: #1d4ed8; background: #dbeafe; }
 
         .status-pill {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
             font-size: 12px;
             font-weight: 600;
             text-align: center;
+            white-space: nowrap;
         }
         .status-pill.Resuelto { background: var(--b-resuelto-bg); color: var(--b-resuelto-txt); }
         .status-pill.En_análisis { background: var(--b-analisis-bg); color: var(--b-analisis-txt); }
@@ -305,44 +377,50 @@
         .status-pill.Nuevo { background: var(--b-nuevo-bg); color: var(--b-nuevo-txt); }
 
         .adjunto-link {
-            display: inline-block;
-            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
             font-size: 12px;
             font-weight: 600;
-            color: #2563eb;
+            color: #1d4ed8;
             text-decoration: none;
+            background: #eff6ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: var(--transition);
+            width: fit-content;
         }
-        .adjunto-link:hover { text-decoration: underline; }
+        .adjunto-link:hover { background: #dbeafe; text-decoration: underline; }
 
-        .obs-text { color: #475569; font-size: 13px; line-height: 1.4; }
+        .obs-text { color: #475569; font-size: 13.5px; line-height: 1.5; }
 
-        /* 5. SECCIÓN DE REQUERIMIENTOS EXTRA */
+        /* 5. PROYECTOS ESTRATÉGICOS */
         .extra-panel {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
             border-left: 5px solid #0284c7;
-            border-radius: 12px;
-            padding: 24px 28px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
 
         .extra-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
         .extra-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 16px;
             font-weight: 700;
             color: #0f172a;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
         }
 
         .tag-extra {
@@ -351,20 +429,20 @@
             font-size: 11px;
             font-weight: 700;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .progress-container { margin-bottom: 20px; }
+        .progress-container { margin-bottom: 24px; }
 
         .progress-labels {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 600;
             color: #475569;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .progress-bar-track {
@@ -380,7 +458,6 @@
             background: linear-gradient(90deg, #0284c7, #0ea5e9);
             width: 53%;
             border-radius: 6px;
-            transition: width 1s ease;
         }
 
         .extra-grid {
@@ -396,8 +473,8 @@
         .extra-card {
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
-            padding: 16px 20px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: var(--radius-md);
         }
 
         .extra-card-title {
@@ -406,7 +483,7 @@
             color: #0284c7;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -414,14 +491,16 @@
 
     <div class="dashboard">
         
-        <!-- HEADER INTERACTIVO -->
         <div class="header-panel">
-            <div class="title-area">
-                <h1>Gestión y Soporte TI — Camping 44</h1>
-                <p>Panel operativo de seguimiento de solicitudes, soporte a las áreas y estado de tickets</p>
+            <div class="brand-area">
+                <img src="LOGOC44.png" alt="Logo" class="company-logo" onerror="this.style.opacity='0'; this.style.width='0'; this.style.padding='0'; this.style.margin='0'; this.style.border='none';">
+                <div class="title-area">
+                    <h1>Gestión y Soporte TI — Camping 44</h1>
+                    <p>Panel operativo de seguimiento de solicitudes, soporte a las áreas y estado de tickets</p>
+                </div>
             </div>
+            
             <div class="controls-area">
-                <!-- Selector de Mes -->
                 <div class="control-group">
                     <label for="filterMonth">Mes:</label>
                     <select id="filterMonth">
@@ -431,7 +510,6 @@
                         <option value="6">Junio (4)</option>
                     </select>
                 </div>
-                <!-- Selector de Prioridad -->
                 <div class="control-group">
                     <label for="filterPriority">Prioridad:</label>
                     <select id="filterPriority">
@@ -441,62 +519,59 @@
                         <option value="Media">Medias (5)</option>
                     </select>
                 </div>
-                <!-- Buscador -->
                 <div class="control-group">
                     <label for="filterSearch">🔍</label>
-                    <input type="text" id="filterSearch" placeholder="Buscar ticket, área...">
+                    <input type="text" id="filterSearch" placeholder="Buscar ticket, área, descripción...">
                 </div>
             </div>
         </div>
 
-        <!-- TARJETAS SUPERIORES (KPIs) -->
         <div class="kpi-row">
             <div class="kpi-card">
-                <div class="kpi-label">Solicitudes en Vista</div>
+                <div class="kpi-label">Solicitudes Filtradas</div>
                 <div class="kpi-num" id="kpi-total">21</div>
-                <div class="kpi-sub">Total registradas en la tabla</div>
+                <div class="kpi-sub">Total en la vista actual</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Casos Cerrados</div>
                 <div class="kpi-num" id="kpi-resueltos">16</div>
-                <div class="kpi-sub">Solucionados y entregados</div>
+                <div class="kpi-sub">Solucionados con éxito</div>
             </div>
             <div class="kpi-card orange">
                 <div class="kpi-label">Casos en Proceso</div>
                 <div class="kpi-num" id="kpi-pendientes">5</div>
-                <div class="kpi-sub">En desarrollo / Espera</div>
+                <div class="kpi-sub">Pendientes / En Análisis</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Tasa de Resolución</div>
                 <div class="kpi-num" id="kpi-tasa">76%</div>
-                <div class="kpi-sub">Efectividad del periodo</div>
+                <div class="kpi-sub">Efectividad del periodo seleccionado</div>
             </div>
         </div>
 
-        <!-- SECCIÓN DE GRÁFICOS INTUITIVOS PURE CSS -->
         <div class="visual-summary-grid">
             
             <div class="chart-box">
                 <div class="chart-header">
                     <span>Volumen de Tickets por Mes</span>
-                    <span style="font-weight:400; font-size:13px; color:#64748b;">Click en los selectores de arriba para aislar</span>
+                    <span style="font-weight:400; font-size:12px; color:var(--text-muted);">Dinámico según filtros aplicados</span>
                 </div>
                 <div class="css-bar-chart">
                     <div class="bar-item">
-                        <div class="bar active" style="height: 100%;" id="bar-4">
-                            <span class="bar-val">9</span>
+                        <div class="bar active" style="height: 90%;" id="bar-4">
+                            <span class="bar-val" id="val-bar-4">9</span>
                         </div>
                         <span>Abril</span>
                     </div>
                     <div class="bar-item">
-                        <div class="bar active" style="height: 88%;" id="bar-5">
-                            <span class="bar-val">8</span>
+                        <div class="bar active" style="height: 80%;" id="bar-5">
+                            <span class="bar-val" id="val-bar-5">8</span>
                         </div>
                         <span>Mayo</span>
                     </div>
                     <div class="bar-item">
-                        <div class="bar active" style="height: 44%;" id="bar-6">
-                            <span class="bar-val">4</span>
+                        <div class="bar active" style="height: 40%;" id="bar-6">
+                            <span class="bar-val" id="val-bar-6">4</span>
                         </div>
                         <span>Junio</span>
                     </div>
@@ -504,21 +579,21 @@
             </div>
 
             <div class="chart-box">
-                <div class="chart-header">Distribución por Prioridad</div>
+                <div class="chart-header">Distribución por Prioridad en Vista</div>
                 <div class="priority-list">
                     <div class="p-row">
                         <span class="p-name">Crítica</span>
-                        <div class="p-track"><div class="p-fill critica" id="fill-critica"></div></div>
+                        <div class="p-track"><div class="p-fill critica" id="fill-critica" style="width: 28.5%;"></div></div>
                         <span class="p-count" id="count-critica">6</span>
                     </div>
                     <div class="p-row">
                         <span class="p-name">Alta</span>
-                        <div class="p-track"><div class="p-fill alta" id="fill-alta"></div></div>
+                        <div class="p-track"><div class="p-fill alta" id="fill-alta" style="width: 47.6%;"></div></div>
                         <span class="p-count" id="count-alta">10</span>
                     </div>
                     <div class="p-row">
                         <span class="p-name">Media</span>
-                        <div class="p-track"><div class="p-fill media" id="fill-media"></div></div>
+                        <div class="p-track"><div class="p-fill media" id="fill-media" style="width: 23.8%;"></div></div>
                         <span class="p-count" id="count-media">5</span>
                     </div>
                 </div>
@@ -526,7 +601,6 @@
 
         </div>
 
-        <!-- TABLA PRINCIPAL DE TICKETS -->
         <div class="table-panel">
             <div class="table-wrap">
                 <table>
@@ -535,15 +609,14 @@
                             <th style="width: 8%;">Ticket</th>
                             <th style="width: 10%;">Fecha</th>
                             <th style="width: 12%;">Área</th>
-                            <th style="width: 9%;">Prioridad</th>
+                            <th style="width: 10%;">Prioridad</th>
                             <th style="width: 28%;">Descripción / Necesidad</th>
-                            <th style="width: 11%;">Estado</th>
-                            <th style="width: 22%;">Detalle de Soporte y Avances</th>
+                            <th style="width: 12%;">Estado</th>
+                            <th style="width: 20%;">Detalle de Soporte y Avances</th>
                         </tr>
                     </thead>
                     <tbody id="ticketBody">
                         
-                        <!-- ABRIL -->
                         <tr class="t-row" data-month="4" data-priority="Crítica" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0006</span></td>
                             <td>18/04/2026</td>
@@ -595,7 +668,7 @@
                             <td><strong>Marketing</strong></td>
                             <td><span class="p-pill Alta">Alta</span></td>
                             <td>Recibimos mucho spam en el Instagram de Vitalica, ¿hay forma de proteger más?<br>
-                                <a href="https://drive.google.com/open?id=1gbIuT30EDHmBCOm1RsUqvtlZFm7BHvAC" target="_blank" class="adjunto-link">📁 Ver captura adjunta</a>
+                                <a href="https://drive.google.com/open?id=1gbIuT30EDHmBCOm1RsUqvtlZFm7BHvAC" target="_blank" class="adjunto-link">📂 Ver captura adjunta</a>
                             </td>
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Se aplicaron filtros de seguridad y moderación de palabras clave en Meta.</td>
@@ -630,7 +703,6 @@
                             <td class="obs-text">Ajuste de márgenes de hardware y actualización de driver térmico.</td>
                         </tr>
 
-                        <!-- MAYO -->
                         <tr class="t-row" data-month="5" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0010</span></td>
                             <td>06/05/2026</td>
@@ -704,7 +776,6 @@
                             <td class="obs-text">Se solicitó el repuesto original al proveedor oficial. Esperando arribo de importación.</td>
                         </tr>
 
-                        <!-- JUNIO -->
                         <tr class="t-row" data-month="6" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0018</span></td>
                             <td>03/06/2026</td>
@@ -749,7 +820,6 @@
             </div>
         </div>
 
-        <!-- SECCIÓN 5: REQUERIMIENTOS EXTRA -->
         <div class="extra-panel">
             <div class="extra-header">
                 <div class="extra-title">
@@ -759,7 +829,7 @@
                 <span class="status-pill En_análisis" style="background:#e0f2fe; color:#0369a1; border: 1px solid #bae6fd;">Desarrollo Activo</span>
             </div>
 
-            <h3 style="font-size: 15px; color: var(--c44-green); margin-bottom: 8px;">
+            <h3 style="font-size: 15px; color: var(--c44-green-dark); margin-bottom: 8px;">
                 Informe Looker Studio para Gestión Regulatoria
             </h3>
 
@@ -776,18 +846,17 @@
             <div class="extra-grid">
                 <div class="extra-card">
                     <div class="extra-card-title">Hito cumplido (Viernes 19 de junio)</div>
-                    <p style="font-size: 13px; color: #334155;">Sesión de trabajo de base de datos junto a <strong>Fabricio Gómez</strong> para trazar el origen de la información y aislar las tablas que alimentarán el reporte.</p>
+                    <p style="font-size: 13.5px; color: #334155;">Sesión de trabajo de base de datos junto a <strong>Fabricio Gómez</strong> para trazar el origen de la información y aislar las tablas que alimentarán el reporte.</p>
                 </div>
                 <div class="extra-card">
                     <div class="extra-card-title">Fase actual en ejecución</div>
-                    <p style="font-size: 13px; color: #334155;">Trabajando simultáneamente en la <strong>edición visual de la interfaz</strong> en Looker y escribiendo la lógica de código para que la ingesta de datos sea automática.</p>
+                    <p style="font-size: 13.5px; color: #334155;">Trabajando simultáneamente en la <strong>edición visual de la interfaz</strong> en Looker y escribiendo la lógica de código para que la ingesta de datos sea automática.</p>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- SCRIPT DE FILTRADO EN TIEMPO REAL COMBINADO -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const selectMonth = document.getElementById('filterMonth');
@@ -801,6 +870,12 @@
                 '6': document.getElementById('bar-6')
             };
 
+            const barVals = {
+                '4': document.getElementById('val-bar-4'),
+                '5': document.getElementById('val-bar-5'),
+                '6': document.getElementById('val-bar-6')
+            };
+
             function runFilter() {
                 const monthVal = selectMonth.value;
                 const priorityVal = selectPriority.value;
@@ -810,10 +885,11 @@
                 let res = 0;
                 let pend = 0;
 
-                // Contadores dinámicos para el gráfico de prioridades
-                let cCritica = 0;
-                let cAlta = 0;
-                let cMedia = 0;
+                // Contadores para prioridades
+                let cCritica = 0; let cAlta = 0; let cMedia = 0;
+
+                // Contadores por mes para recalcular gráfico de barras en tiempo real
+                let monthCounts = { '4': 0, '5': 0, '6': 0 };
 
                 rows.forEach(row => {
                     const rMonth = row.getAttribute('data-month');
@@ -834,12 +910,17 @@
                         if (rPriority === 'Crítica') cCritica++;
                         else if (rPriority === 'Alta') cAlta++;
                         else if (rPriority === 'Media') cMedia++;
+
+                        // Sumamos al mes correspondiente si pasa los filtros cruzados
+                        if(monthCounts[rMonth] !== undefined) {
+                            monthCounts[rMonth]++;
+                        }
                     } else {
                         row.style.display = 'none';
                     }
                 });
 
-                // Actualizar números KPI
+                // Actualizar Tarjetas KPI
                 document.getElementById('kpi-total').innerText = tot;
                 document.getElementById('kpi-resueltos').innerText = res;
                 document.getElementById('kpi-pendientes').innerText = pend;
@@ -847,18 +928,29 @@
                 const pct = tot > 0 ? Math.round((res / tot) * 100) : 0;
                 document.getElementById('kpi-tasa').innerText = pct + '%';
 
-                // Efecto en las barras de meses
+                // Encontrar el valor máximo mensual actual para escalar las barras equitativamente
+                const maxMonthCount = Math.max(...Object.values(monthCounts), 1);
+
+                // Renderizado y animación dinámica de las barras CSS
                 for (let m in bars) {
+                    const currentCount = monthCounts[m];
+                    barVals[m].innerText = currentCount;
+                    
+                    // Lógica de altura reactiva
+                    const heightPercentage = (currentCount / maxMonthCount) * 95; // max 95% de altura
+                    bars[m].style.height = currentCount > 0 ? `${Math.max(heightPercentage, 10)}%` : '4px';
+
+                    // Opacidad si hay un mes aislado por el selector drop-down
                     if (monthVal === 'all' || monthVal === m) {
                         bars[m].style.opacity = '1';
                         bars[m].classList.add('active');
                     } else {
-                        bars[m].style.opacity = '0.25';
+                        bars[m].style.opacity = '0.20';
                         bars[m].classList.remove('active');
                     }
                 }
 
-                // Actualizar dinámicamente el cuadro de Prioridades
+                // Actualizar barra de distribución de Prioridades
                 document.getElementById('count-critica').innerText = cCritica;
                 document.getElementById('fill-critica').style.width = tot > 0 ? (cCritica/tot*100) + '%' : '0%';
                 
@@ -872,6 +964,9 @@
             selectMonth.addEventListener('change', runFilter);
             selectPriority.addEventListener('change', runFilter);
             inputSearch.addEventListener('input', runFilter);
+            
+            // Ejecutar al cargar la página para inicializar estados correctos
+            runFilter();
         });
     </script>
 </body>
