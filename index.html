@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte TI - Camping 44 S.A.</title>
+    <title>Dashboard Control Center TI - Camping 44 S.A.</title>
+    <!-- Importando tipografía corporativa limpia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #111827;
-            --bg-card-hover: #1f2937;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --primary: #10b981; /* Emerald */
-            --primary-glow: rgba(16, 185, 129, 0.15);
-            --accent: #f59e0b; /* Amber */
-            --accent-glow: rgba(245, 158, 11, 0.15);
-            --danger: #ef4444; /* Red */
-            --danger-glow: rgba(239, 68, 68, 0.15);
-            --info: #3b82f6; /* Blue */
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-canvas: #f4f6f8;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --forest-green: #115e59; /* Verde corporativo premium */
+            --forest-light: #f0fdfa;
+            --accent-orange: #ea580c;
+            --border-color: #e2e8f0;
+            
+            /* Status Colors */
+            --green-bg: #e6f4ea; --green-text: #137333;
+            --amber-bg: #fef7e0; --amber-text: #b06000;
+            --purple-bg: #f3e8ff; --purple-text: #6b21a8;
+            --red-bg: #fce8e6; --red-text: #c5221f;
         }
 
         * {
@@ -28,545 +33,564 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-canvas);
             color: var(--text-main);
-            line-height: 1.5;
-            padding: 24px;
+            padding: 40px 24px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 1400px;
+        .dashboard-container {
+            max-width: 1500px;
             margin: 0 auto;
         }
 
-        /* Header Dashboard */
+        /* Top Header Strategy */
         header {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
-        .brand h1 {
-            font-size: 24px;
+        .brand-section h1 {
+            font-size: 22px;
             font-weight: 700;
+            color: var(--forest-green);
             letter-spacing: -0.5px;
-            color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .brand h1 span {
-            color: var(--primary);
-        }
-
-        .brand p {
+        .brand-section h1 span {
+            font-weight: 400;
             color: var(--text-muted);
-            font-size: 14px;
+        }
+
+        .brand-section p {
+            font-size: 13.5px;
+            color: var(--text-muted);
             margin-top: 4px;
         }
 
-        .header-badge {
-            background: linear-gradient(135deg, #047857, #065f46);
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--forest-light);
             padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(17, 94, 93, 0.1);
         }
 
-        /* KPI Matrix Grid */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #0f9d58;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .system-status span {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--forest-green);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* KPI Matrix Widgets */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .kpi-card {
             background-color: var(--bg-card);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
             position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s;
         }
 
-        .kpi-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(255,255,255,0.15);
-        }
-
-        .kpi-card::before {
+        .kpi-card::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
-            height: 100%;
-            background-color: var(--primary);
+            width: 100%;
+            height: 4px;
+            border-radius: 12px 12px 0 0;
+            background-color: var(--border-color);
         }
 
-        .kpi-card.pending::before {
-            background-color: var(--accent);
-        }
-
-        .kpi-card.sla::before {
-            background-color: var(--info);
-        }
+        .kpi-card.active::after { background-color: var(--forest-green); }
+        .kpi-card.warning::after { background-color: var(--accent-orange); }
+        .kpi-card.info::after { background-color: #2563eb; }
 
         .kpi-title {
-            font-size: 13px;
+            font-size: 12px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--text-muted);
-            font-weight: 600;
         }
 
         .kpi-value {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
-            color: #ffffff;
-            margin: 8px 0;
+            color: #0f172a;
+            margin: 6px 0;
         }
 
-        .kpi-meta {
+        .kpi-footer {
             font-size: 12px;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
-        /* Dashboard Sections Layout */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
+        .kpi-footer strong {
+            color: #0f172a;
         }
 
-        .section-card {
+        /* Main Workspace Table Section */
+        .main-panel {
             background-color: var(--bg-card);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 24px;
-            overflow: hidden;
+            padding: 28px 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
-        .section-header {
+        .panel-header {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .section-header h2 {
-            font-size: 18px;
+        .panel-header h2 {
+            font-size: 16px;
             font-weight: 600;
-            color: #ffffff;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Ultra Modern Data Table styling */
-        .table-container {
+        .panel-header h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 16px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+
+        /* Premium Table Grid Design */
+        .table-responsive {
             overflow-x: auto;
             width: 100%;
         }
 
-        .modern-table {
+        .corporate-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             text-align: left;
-            font-size: 14px;
         }
 
-        .modern-table th {
-            background-color: rgba(255, 255, 255, 0.02);
-            padding: 14px 16px;
+        .corporate-table th {
+            background-color: #f8fafc;
             color: var(--text-muted);
+            font-size: 11px;
             font-weight: 600;
-            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--border);
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .modern-table td {
-            padding: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            vertical-align: middle;
+        .corporate-table th:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+        .corporate-table th:last-child { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+
+        .corporate-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13.5px;
+            vertical-align: top;
+            color: #334155;
         }
 
-        .modern-table tr:hover td {
-            background-color: var(--bg-card-hover);
+        .corporate-table tr:last-child td {
+            border-bottom: none;
         }
 
-        /* Status & Badges Pills */
-        .badge {
-            display: inline-flex;
-            align-items: center;
+        .corporate-table tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Refined Elements & Tags */
+        .ticket-id {
+            font-family: monospace;
+            font-weight: 700;
+            color: #0f172a;
+            background-color: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .badge-status {
+            display: inline-block;
             padding: 4px 10px;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
+            text-align: center;
         }
 
-        .status-resuelto {
-            background-color: var(--primary-glow);
-            color: #34d399;
-        }
+        .status-resuelto { background-color: var(--green-bg); color: var(--green-text); }
+        .status-analisis { background-color: var(--amber-bg); color: var(--amber-text); }
+        .status-espera { background-color: var(--purple-bg); color: var(--purple-text); }
+        .status-nuevo { background-color: var(--red-bg); color: var(--red-text); }
 
-        .status-analisis {
-            background-color: var(--accent-glow);
-            color: #fbbf24;
-        }
-
-        .status-espera {
-            background-color: rgba(139, 92, 246, 0.15);
-            color: #a78bfa;
-        }
-
-        .status-nuevo {
-            background-color: var(--danger-glow);
-            color: #f87171;
-        }
-
-        .priority-critica {
-            color: #f87171;
-            font-weight: 700;
-        }
-
-        .priority-alta {
-            color: #fbbf24;
-        }
-
-        .priority-media {
-            color: #60a5fa;
-        }
-
-        .ticket-code {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: 700;
-            color: #ffffff;
-            background-color: rgba(255,255,255,0.05);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .text-bold {
+        .priority-indicator {
             font-weight: 600;
-            color: #ffffff;
-        }
-
-        .desc-text {
-            max-width: 320px;
-            white-space: normal;
-            word-wrap: break-word;
-            color: #d1d5db;
-            font-size: 13px;
-        }
-
-        .obs-text {
             font-size: 12px;
+        }
+        .p-critica { color: var(--red-text); font-weight: 700; }
+        .p-alta { color: #d97706; }
+        .p-media { color: #2563eb; }
+
+        .area-text {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .desc-column {
+            max-width: 340px;
+            line-height: 1.42;
+        }
+
+        .obs-column {
+            max-width: 260px;
+            font-size: 12.5px;
             color: var(--text-muted);
-            max-width: 240px;
+            line-height: 1.4;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(15, 157, 88, 0.4); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(15, 157, 88, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(15, 157, 88, 0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Dashboard Top Header -->
+    <div class="dashboard-container">
+        <!-- Main Top Bar -->
         <header>
-            <div class="brand">
-                <h1>CAMPING 44 S.A. <span>• Control Center</span></h1>
-                <p>Mesa de Entrada de Operaciones y Mantenimiento de TI — Consolidated Dashboard</p>
+            <div class="brand-section">
+                <h1>CAMPING 44 S.A. <span>/ Control Center TI</span></h1>
+                <p>Mesa de Entrada, Historial Consolidado y Trazabilidad de Requerimientos</p>
             </div>
-            <div class="header-badge">LIVE PRODUCTION SYSTEM</div>
+            <div class="system-status">
+                <div class="status-dot"></div>
+                <span>Reporte Ejecutivo Directivo</span>
+            </div>
         </header>
 
-        <!-- Metrics Dashboard Summary Row -->
+        <!-- Dynamic Numeric Tiles (KPIs) -->
         <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-title">Solicitudes Totales</div>
+            <div class="kpi-card active">
+                <div class="kpi-title">Solicitudes Registradas</div>
                 <div class="kpi-value">21</div>
-                <div class="kpi-meta">100% registros integrados</div>
+                <div class="kpi-footer">Corte de datos: <strong>Junio 2026</strong></div>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card active">
                 <div class="kpi-title">Casos Resueltos</div>
-                <div class="kpi-value" style="color: #34d399;">16</div>
-                <div class="kpi-meta">76.2% Tasa de efectividad</div>
+                <div class="kpi-value" style="color: var(--green-text);">16</div>
+                <div class="kpi-footer">Tasa de Efectividad: <strong>76.2%</strong></div>
             </div>
-            <div class="kpi-card pending">
+            <div class="kpi-card warning">
                 <div class="kpi-title">Casos Pendientes</div>
-                <div class="kpi-value" style="color: #fbbf24;">5</div>
-                <div class="kpi-meta">En ejecución / Escalados</div>
+                <div class="kpi-value" style="color: var(--accent-orange);">5</div>
+                <div class="kpi-footer">En desarrollo / Análisis: <strong>23.8%</strong></div>
             </div>
-            <div class="kpi-card sla">
-                <div class="kpi-title">SLA Críticos</div>
-                <div class="kpi-value" style="color: #60a5fa;">100%</div>
-                <div class="kpi-meta">Soporte de Salón garantizado</div>
+            <div class="kpi-card info">
+                <div class="kpi-title">Cumplimiento SLA</div>
+                <div class="kpi-value" style="color: #2563eb;">100%</div>
+                <div class="kpi-footer">Incidentes Críticos: <strong>0 demoras</strong></div>
             </div>
         </div>
 
-        <!-- Main Workspace Section -->
-        <div class="grid-layout">
-            <div class="section-card">
-                <div class="section-header">
-                    <h2>Historial Consolidado y Trazabilidad Completa de Tickets</h2>
-                </div>
-                <div class="table-container">
-                    <table class="modern-table">
-                        <thead>
-                            <tr>
-                                <th>Ticket</th>
-                                <th>Inicio</th>
-                                <th>Área</th>
-                                <th>Categoría</th>
-                                <th>Prioridad</th>
-                                <th>Descripción de la Solicitud / Incidente</th>
-                                <th>Estado</th>
-                                <th>Cierre</th>
-                                <th>Estatus Técnico / Comentarios</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="ticket-code">TI-0006</span></td>
-                                <td>18/04/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-critica">Crítica</span></td>
-                                <td class="desc-text">Impresora de salón no funciona. Operación presencial comprometida.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>21/04/2026</td>
-                                <td class="obs-text">Falla crítica solucionada. Restablecimiento completo del canal físico.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0007</span></td>
-                                <td>20/04/2026</td>
-                                <td><span class="text-bold">Marketing</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">No puedo imprimir en la impresora de ADM ni de Marketing.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>20/04/2026</td>
-                                <td class="obs-text">Ruteo de red y cola de impresión purgada con éxito.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0008</span></td>
-                                <td>20/04/2026</td>
-                                <td><span class="text-bold">Administración</span></td>
-                                <td>Accesos</td>
-                                <td><span class="priority-media">Media</span></td>
-                                <td class="desc-text">Inclusión a grupos de distribución: mayoristas y logística.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>20/04/2026</td>
-                                <td class="obs-text">Permisos otorgados en el servidor de correo corporativo.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0009</span></td>
-                                <td>20/04/2026</td>
-                                <td><span class="text-bold">Administración</span></td>
-                                <td>Accesos</td>
-                                <td><span class="priority-media">Media</span></td>
-                                <td class="desc-text">Agregar a grupos: Gestiones, Vitalica Mayoristas, Difusión e info.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>20/04/2026</td>
-                                <td class="obs-text">Asignación completada en listas de distribución internas.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0008</span></td>
-                                <td>21/04/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-media">Media</span></td>
-                                <td class="desc-text">Conectar impresora en oficina online.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>21/04/2026</td>
-                                <td class="obs-text">Mapeo IP remoto completado de forma exitosa.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0009</span></td>
-                                <td>24/04/2026</td>
-                                <td><span class="text-bold">Marketing</span></td>
-                                <td>Otro</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Filtro de protección contra spam masivo en Instagram de Vitalica.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>27/04/2026</td>
-                                <td class="obs-text">Medidas de seguridad de Meta aplicadas a la cuenta corporativa.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0010</span></td>
-                                <td>27/04/2026</td>
-                                <td><span class="text-bold">Administración</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-critica">Crítica</span></td>
-                                <td class="desc-text">Error en renderizado de datos al imprimir recibos (ej: Recibo 90012140).</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>07/05/2026</td>
-                                <td class="obs-text">Corrección del layout XML del informe en servidor Odoo.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0011</span></td>
-                                <td>27/04/2026</td>
-                                <td><span class="text-bold">Administración</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-critica">Crítica</span></td>
-                                <td class="desc-text">Habilitación de entrega automática desde salón para vendedores/supervisores.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>05/05/2026</td>
-                                <td class="obs-text">Ajuste de flujos de inventario automáticos por perfiles.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0009</span></td>
-                                <td>30/04/2026</td>
-                                <td><span class="text-bold">Depósito</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Calibración de impresora térmica para nuevas dimensiones de etiquetas SKU.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>27/05/2026</td>
-                                <td class="obs-text">Reajuste físico y de firmware en el hardware del depósito.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0010</span></td>
-                                <td>06/05/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Otro</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Automatización de extracción y carga de datos desde HANSA a Looker Studio.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>28/05/2026</td>
-                                <td class="obs-text">Script de ETL programado para eliminar procesos manuales.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0011</span></td>
-                                <td>06/05/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Optimización de reporte de Lista de Precios en Odoo a un solo click (separar marcas).</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>29/05/2026</td>
-                                <td class="obs-text">Limpieza de columnas redundantes e indexación de marcas.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0012</span></td>
-                                <td>06/05/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Informe integral de ventas online automatizado en Looker Studio/Odoo.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>04/06/2026</td>
-                                <td class="obs-text">Pipeline de datos unificado. Reporte dinámico en producción.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0013</span></td>
-                                <td>20/05/2026</td>
-                                <td><span class="text-bold">Administración</span></td>
-                                <td>Celular</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Asignación de equipo móvil corporativo para resguardo de auditorías internas.</td>
-                                <td><span class="badge status-analisis">En Análisis</span></td>
-                                <td>--</td>
-                                <td class="obs-text" style="color: #fbbf24;">Pendiente de validación de CAPEX y política de compras corporativas.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0014</span></td>
-                                <td>21/05/2026</td>
-                                <td><span class="text-bold">Marketing</span></td>
-                                <td>Otro</td>
-                                <td><span class="priority-critica">Crítica</span></td>
-                                <td class="desc-text">Inconveniente técnico en pauta publicitaria para derivación API WhatsApp.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>29/05/2026</td>
-                                <td class="obs-text">Falla en webhook solucionada. Enrutamiento comercial activo.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0015</span></td>
-                                <td>26/05/2026</td>
-                                <td><span class="text-bold">Administración</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-media">Media</span></td>
-                                <td class="desc-text">Impresora de administración no procesa archivos enviados.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>04/06/2026</td>
-                                <td class="obs-text">Reinstalación de controladores y actualización de firmware local.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0016</span></td>
-                                <td>29/05/2026</td>
-                                <td><span class="text-bold">Capital Humano</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Permisos de acceso a reportes de Contabilidad y Estado de Cuentas.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>29/05/2026</td>
-                                <td class="obs-text">Matriz de seguridad actualizada para el puesto correspondiente.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0017</span></td>
-                                <td>29/05/2026</td>
-                                <td><span class="text-bold">Capital Humano</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-media">Media</span></td>
-                                <td class="desc-text">Degradación de batería de notebook corporativa (autonomía de 1.5 horas).</td>
-                                <td><span class="badge status-espera">Espera Prov</span></td>
-                                <td>--</td>
-                                <td class="obs-text" style="color: #a78bfa;">A la espera de la entrega física del componente por el proveedor técnico.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0018</span></td>
-                                <td>03/06/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Hardware</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Reconfiguración integral de impresora local.</td>
-                                <td><span class="badge status-resuelto">Resuelto</span></td>
-                                <td>05/06/2026</td>
-                                <td class="obs-text">Soporte remoto completado. Configuración validada por usuario.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0019</span></td>
-                                <td>08/06/2026</td>
-                                <td><span class="text-bold">Ventas</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-alta">Alta</span></td>
-                                <td class="desc-text">Desarrollo de catálogo con imágenes dinámicas y listas de tarifas personalizadas.</td>
-                                <td><span class="badge status-nuevo">Nuevo</span></td>
-                                <td>--</td>
-                                <td class="obs-text" style="color: #f87171;">Fase de pruebas: Estabilizando peso de imágenes en base de datos ERP.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0020</span></td>
-                                <td>16/06/2026</td>
-                                <td><span class="text-bold">Otro</span></td>
-                                <td>Otro</td>
-                                <td><span class="priority-media">Media</span></td>
-                                <td class="desc-text">Falla del lector biométrico de huellas dactilares en ATC de Regulación.</td>
-                                <td><span class="badge status-nuevo">Nuevo</span></td>
-                                <td>--</td>
-                                <td class="obs-text" style="color: #f87171;">Mantenimiento correctivo agendado in situ en la sucursal.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="ticket-code">TI-0021</span></td>
-                                <td>19/06/2026</td>
-                                <td><span class="text-bold">Otro</span></td>
-                                <td>Odoo</td>
-                                <td><span class="priority-critica">Crítica</span></td>
-                                <td class="desc-text">Módulo de almacenamiento estructural y clasificación de documentos de clientes.</td>
-                                <td><span class="badge status-nuevo">Nuevo</span></td>
-                                <td>--</td>
-                                <td class="obs-text" style="color: #f87171;">Análisis de requerimientos de almacenamiento y estructura lógica en Odoo.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <!-- Master Data Ledger -->
+        <div class="main-panel">
+            <div class="panel-header">
+                <h2>Trazabilidad Completa de Requerimientos</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="corporate-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 7%;">Ticket</th>
+                            <th style="width: 9%;">Apertura</th>
+                            <th style="width: 12%;">Área</th>
+                            <th style="width: 10%;">Categoría</th>
+                            <th style="width: 9%;">Prioridad</th>
+                            <th style="width: 26%;">Descripción del Problema o Solicitud</th>
+                            <th style="width: 10%;">Estado</th>
+                            <th style="width: 9%;">Cierre</th>
+                            <th style="width: 18%;">Observaciones Técnicas y Avances</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="ticket-id">TI-0006</span></td>
+                            <td>18/04/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-critica">Crítica</span></td>
+                            <td class="desc-column">Impresora de salón no funciona. Operación comercial presencial detenida.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>21/04/2026</td>
+                            <td class="obs-column">Falla de hardware solucionada in situ. Línea de caja operativa.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0007</span></td>
+                            <td>20/04/2026</td>
+                            <td><span class="area-text">Marketing</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">No puedo imprimir en la impresora de ADM y tampoco de Marketing.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>20/04/2026</td>
+                            <td class="obs-column">Reenrutamiento de colas IP locales completado de forma inmediata.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0008</span></td>
+                            <td>20/04/2026</td>
+                            <td><span class="area-text">Administración</span></td>
+                            <td>Accesos</td>
+                            <td><span class="priority-indicator p-media">Media</span></td>
+                            <td class="desc-column">Inclusión de usuario a listas de distribución: C44 pedidos mayoristas y logistica.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>20/04/2026</td>
+                            <td class="obs-column">Asignación de alias y grupos en Exchange Server finalizada.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0009</span></td>
+                            <td>20/04/2026</td>
+                            <td><span class="area-text">Administración</span></td>
+                            <td>Accesos</td>
+                            <td><span class="priority-indicator p-media">Media</span></td>
+                            <td class="desc-column">Inclusión a listas: Gestiones, Vitalica Mayoristas, Difusión e info.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>20/04/2026</td>
+                            <td class="obs-column">Permisos configurados según matriz de accesos institucionales.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0008</span></td>
+                            <td>21/04/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-media">Media</span></td>
+                            <td class="desc-column">Conectar impresora de oficina online.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>21/04/2026</td>
+                            <td class="obs-column">Configuración de puerto de red remota por VPN exitosa.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0009</span></td>
+                            <td>24/04/2026</td>
+                            <td><span class="area-text">Marketing</span></td>
+                            <td>Otro</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Mitigación y protección contra spam masivo en el Instagram institucional de Vitalica.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>27/04/2026</td>
+                            <td class="obs-column">Configuración de filtros avanzados de palabras clave en Meta Business.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0010</span></td>
+                            <td>27/04/2026</td>
+                            <td><span class="area-text">Administración</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-critica">Crítica</span></td>
+                            <td class="desc-text desc-column">Error en renderizado: Al imprimir los recibos no muestra todos los datos. (Ej: Recibo 90012140).</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>07/05/2026</td>
+                            <td class="obs-column">Depuración del layout QWeb en Odoo ERP para carga completa de strings.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0011</span></td>
+                            <td>27/04/2026</td>
+                            <td><span class="area-text">Administración</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-critica">Crítica</span></td>
+                            <td class="desc-column">Corrección de automatización de entregas de mercaderías directas desde salón.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>05/05/2026</td>
+                            <td class="obs-column">Habilitación de acciones de stock automáticas para personal comercial.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0009</span></td>
+                            <td>30/04/2026</td>
+                            <td><span class="area-text">Depósito</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Calibración física y lógica de impresora térmica para nuevas medidas de etiquetas SKU.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>27/05/2026</td>
+                            <td class="obs-column">Ajuste de dimensiones físicas y actualización de controladores locales.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0010</span></td>
+                            <td>06/05/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Otro</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Automatización de extracción y carga de datos del ERP HANSA hacia Looker Studio.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>28/05/2026</td>
+                            <td class="obs-column">Desarrollo de script ETL programado. Eliminación total de carga manual.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0011</span></td>
+                            <td>06/05/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Reestructuración del reporte comercial de Lista de Precios en Odoo (filtro por marcas).</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>29/05/2026</td>
+                            <td class="obs-column">Remoción de 30 columnas redundantes. Extracción ágil a un solo click.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0012</span></td>
+                            <td>06/05/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Automatización completa online del informe diario de ventas comerciales.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>04/06/2026</td>
+                            <td class="obs-column">Integración de canales y objetivos de vendedores en Looker Studio.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0013</span></td>
+                            <td>20/05/2026</td>
+                            <td><span class="area-text">Administración</span></td>
+                            <td>Celular</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Asignación de dispositivo celular corporativo para resguardo de procesos y auditorías internas.</td>
+                            <td><span class="badge-status status-analisis">En Análisis</span></td>
+                            <td>--</td>
+                            <td class="obs-column" style="font-weight: 500; color: #b06000;">Bloqueante: En evaluación de políticas de asignación y aprobación de presupuesto directivo.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0014</span></td>
+                            <td>21/05/2026</td>
+                            <td><span class="area-text">Marketing</span></td>
+                            <td>Otro</td>
+                            <td><span class="priority-indicator p-critica">Crítica</span></td>
+                            <td class="desc-column">Inconveniente de pauta publicitaria en Meta para derivación directa a API WhatsApp.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>29/05/2026</td>
+                            <td class="obs-column">Corrección de tokens de acceso y webhooks de comunicación publicitaria.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0015</span></td>
+                            <td>26/05/2026</td>
+                            <td><span class="area-text">Administración</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-media">Media</span></td>
+                            <td class="desc-column">Impresora de administración no reconoce los archivos enviados por el usuario.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>04/06/2026</td>
+                            <td class="obs-column">Actualización de controladores locales y limpieza física de memoria de red.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0016</span></td>
+                            <td>29/05/2026</td>
+                            <td><span class="area-text">Capital Humano</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Habilitación de accesos especiales a reportes contables y estados de cuenta.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>29/05/2026</td>
+                            <td class="obs-column">Actualización de los privilegios del perfil del puesto dentro de Odoo.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0017</span></td>
+                            <td>29/05/2026</td>
+                            <td><span class="area-text">Capital Humano</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-media">Media</span></td>
+                            <td class="desc-column">Degradación severa de batería de notebook corporativa (autonomía de 1h 30m).</td>
+                            <td><span class="badge-status status-espera">Espera Prov</span></td>
+                            <td>--</td>
+                            <td class="obs-column" style="font-weight: 500; color: #6b21a8;">Logística: Pedido en tránsito internacional con el proveedor técnico oficial.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0018</span></td>
+                            <td>03/06/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Hardware</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Configuración y mapeo integral de impresora local.</td>
+                            <td><span class="badge-status status-resuelto">Resuelto</span></td>
+                            <td>05/06/2026</td>
+                            <td class="obs-column">Alineación IP y pruebas de carga exitosas completadas de forma remota.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0019</span></td>
+                            <td>08/06/2026</td>
+                            <td><span class="area-text">Ventas</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-alta">Alta</span></td>
+                            <td class="desc-column">Desarrollo de nuevo reporte de Listado de Precios con Miniaturas/Imágenes dinámicas y filtros.</td>
+                            <td><span class="badge-status status-nuevo">Nuevo</span></td>
+                            <td>--</td>
+                            <td class="obs-column" style="font-weight: 500; color: #c5221f;">Desarrollo: Evaluando compresión de miniaturas para evitar sobrecarga del servidor ERP.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0020</span></td>
+                            <td>16/06/2026</td>
+                            <td><span class="area-text">Otro</span></td>
+                            <td>Otro</td>
+                            <td><span class="priority-indicator p-media">Media</span></td>
+                            <td class="desc-column">Avería técnica en lector biométrico de huellas dactilares en ATC de Gestión Regulatoria.</td>
+                            <td><span class="badge-status status-nuevo">Nuevo</span></td>
+                            <td>--</td>
+                            <td class="obs-column" style="font-weight: 500; color: #c5221f;">Soporte: Agendada visita presencial a sucursal para reemplazo o reinstalación física.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ticket-id">TI-0021</span></td>
+                            <td>19/06/2026</td>
+                            <td><span class="area-text">Otro</span></td>
+                            <td>Odoo</td>
+                            <td><span class="priority-indicator p-critica">Crítica</span></td>
+                            <td class="desc-column">Módulo de almacenamiento estructural y clasificación parametrizada de documentos clave de clientes.</td>
+                            <td><span class="badge-status status-nuevo">Nuevo</span></td>
+                            <td>--</td>
+                            <td class="obs-column" style="font-weight: 500; color: #c5221f;">Estratégico: Fase de diseño lógico de base de datos y dimensionamiento de almacenamiento.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
