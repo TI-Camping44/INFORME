@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Camping 44 - Reporte de Gestión de TI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        @page {
+            size: A4 landscape;
+            margin: 12mm 15mm;
+            background-color: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+            line-height: 1.35;
+            font-size: 10.5pt;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .header-title-cell h1 {
+            color: #14532d;
+            font-size: 22pt;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header-title-cell p {
+            color: #64748b;
+            font-size: 11pt;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .header-meta-cell {
+            text-align: right;
+            vertical-align: middle;
+        }
+        .meta-badge {
+            background-color: #14532d;
+            color: #ffffff;
+            padding: 6px 14px;
+            font-weight: bold;
+            font-size: 10pt;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .meta-date {
+            color: #64748b;
+            font-size: 10pt;
+            margin-top: 4px;
+        }
+        .kpi-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 12px 0;
+            margin-left: -12px;
+            margin-right: -12px;
+            margin-bottom: 25px;
+        }
+        .kpi-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 14px 18px;
+            width: 25%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            border-top: 4px solid #14532d;
+        }
+        .kpi-card.pending {
+            border-top: 4px solid #ea580c;
+        }
+        .kpi-label {
+            color: #64748b;
+            font-size: 9.5pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .kpi-value {
+            font-size: 24pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .kpi-subtext {
+            font-size: 9pt;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+        h2 {
+            color: #0f172a;
+            font-size: 14pt;
+            font-weight: 600;
+            padding-left: 8px;
+            border-left: 4px solid #ea580c;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        .data-table th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 600;
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 9.5pt;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            font-size: 10pt;
+        }
+        .data-table tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 8.5pt;
+            font-weight: 600;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .badge-nuevo { background-color: #dbeafe; color: #1e40af; }
+        .badge-analisis { background-color: #fef3c7; color: #92400e; }
+        .badge-espera { background-color: #f3e8ff; color: #6b21a8; }
+        .badge-critica { background-color: #fee2e2; color: #991b1b; }
+        .badge-alta { background-color: #ffedd5; color: #c2410c; }
+        .badge-media { background-color: #f1f5f9; color: #334155; }
+        
+        .ticket-id {
+            font-family: monospace;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .analysis-cell {
+            width: 50%;
+            vertical-align: top;
+            padding-right: 15px;
+        }
+        .analysis-cell:last-child {
+            padding-right: 0;
+            padding-left: 15px;
+        }
+        .summary-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .summary-box ul {
+            margin-left: 18px;
+            margin-top: 6px;
+        }
+        .summary-box li {
+            margin-bottom: 6px;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <table class="header-table">
+        <tr>
+            <td class="header-title-cell">
+                <h1>CAMPING 44 S.A.</h1>
+                <p>Dashboard Ejecutivo de Gestión & Soporte TI — Resumen Mensual</p>
+            </td>
+            <td class="header-meta-cell">
+                <div class="meta-badge">REPORTE AL DIRECTORIO</div>
+                <div class="meta-date">Corte: Junio 2026</div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="kpi-table">
+        <tr>
+            <td class="kpi-card">
+                <div class="kpi-label">Total Solicitudes</div>
+                <div class="kpi-value">21</div>
+                <div class="kpi-subtext">Tickets registrados en el periodo</div>
+            </td>
+            <td class="kpi-card">
+                <div class="kpi-label">Casos Resueltos</div>
+                <div class="kpi-value">16</div>
+                <div class="kpi-subtext">76.2% de efectividad de cierre</div>
+            </td>
+            <td class="kpi-card kpi-card.pending">
+                <div class="kpi-label">Casos Pendientes</div>
+                <div class="kpi-value">5</div>
+                <div class="kpi-subtext">23.8% en proceso activo</div>
+            </td>
+            <td class="kpi-card">
+                <div class="kpi-label">Cumplimiento SLA</div>
+                <div class="kpi-value">100%</div>
+                <div class="kpi-subtext">En incidentes críticos de salón</div>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Monitoreo y Estado de Avance de Casos Pendientes</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 8%;">N° Ticket</th>
+                <th style="width: 10%;">Fecha Inicio</th>
+                <th style="width: 15%;">Área / Solicitante</th>
+                <th style="width: 9%;">Prioridad</th>
+                <th style="width: 28%;">Descripción de la Necesidad</th>
+                <th style="width: 12%;">Estado TI</th>
+                <th style="width: 18%;">Justificación Técnica / Próximo Paso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="ticket-id">TI-0013</td>
+                <td>20/05/2026</td>
+                <td><strong>Administración</strong><br>Carlos González</td>
+                <td><span class="badge badge-alta">Alta</span></td>
+                <td>Necesidad de celular corporativo para auditar procesos internos y liberar espacio/memoria en su dispositivo personal.</td>
+                <td><span class="badge badge-analisis">En Análisis</span></td>
+                <td><strong>Bloqueante:</strong> Requiere visto bueno de Presupuesto. Se evalúa política de asignación de terminales móviles comerciales.</td>
+            </tr>
+            <tr>
+                <td class="ticket-id">TI-0017</td>
+                <td>29/05/2026</td>
+                <td><strong>Capital Humano</strong><br>Irene Livieres</td>
+                <td><span class="badge badge-media">Media</span></td>
+                <td>Batería de notebook asignada dañada (autonomía crítica de solo 1h 30m desenchufada).</td>
+                <td><span class="badge badge-espera">Espera Proveedor</span></td>
+                <td><strong>Logística:</strong> Repuesto original solicitado al proveedor oficial. Con retraso de entrega estimado para la próxima semana.</td>
+            </tr>
+            <tr>
+                <td class="ticket-id">TI-0019</td>
+                <td>08/06/2026</td>
+                <td><strong>Ventas</strong><br>Lucas Álvarez</td>
+                <td><span class="badge badge-alta">Alta</span></td>
+                <td>Desarrollo de un nuevo reporte de Listado de Precios con imágenes dinámicas directamente desde Odoo con filtros avanzados.</td>
+                <td><span class="badge badge-nuevo">Nuevo</span></td>
+                <td><strong>Desarrollo:</strong> Relevamiento de base de datos. Se busca optimizar el peso de las miniaturas para no comprometer el servidor de Odoo.</td>
+            </tr>
+            <tr>
+                <td class="ticket-id">TI-0020</td>
+                <td>16/06/2026</td>
+                <td><strong>Gestión Reg.</strong><br>Ruth Franco</td>
+                <td><span class="badge badge-media">Media</span></td>
+                <td>Avería de hardware en el lector de huella dactilar del área de Atención al Cliente (ATC).</td>
+                <td><span class="badge badge-nuevo">Nuevo</span></td>
+                <td><strong>Soporte Físico:</strong> Visita técnica agendada en la sucursal para reemplazo o reconfiguración del sensor biométrico.</td>
+            </tr>
+            <tr>
+                <td class="ticket-id">TI-0021</td>
+                <td>19/06/2026</td>
+                <td><strong>Operaciones</strong><br>Fabricio Gómez</td>
+                <td><span class="badge badge-critica">Crítica</span></td>
+                <td>Módulo estructural en Odoo para clasificar y adjuntar documentos obligatorios de clientes (Cédulas, Carnets, etc.).</td>
+                <td><span class="badge badge-nuevo">Nuevo</span></td>
+                <td><strong>Estratégico:</strong> Solicitud de alto impacto para toda la empresa. Iniciando fase de arquitectura y diseño de almacenamiento digital.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="analysis-table">
+        <tr>
+            <td class="analysis-cell">
+                <h2>Distribución del Trabajo del Mes</h2>
+                <div class="summary-box">
+                    <ul>
+                        <li><strong>Soporte de Hardware (33.3%):</strong> Resoluciones rápidas de infraestructura física (ej. impresora de salón TI-0006).</li>
+                        <li><strong>Evolución Odoo (33.3%):</strong> Automatizaciones de entregas y adecuación estructural de recibos de dinero.</li>
+                    </ul>
+                </div>
+            </td>
+            <td class="analysis-cell">
+                <h2>Directrices Solicitadas al Directorio</h2>
+                <div class="summary-box">
+                    <ul>
+                        <li><strong>Aprobación de CAPEX (TI-0013):</strong> Validar compra del terminal para Auditoría.</li>
+                        <li><strong>Priorización Odoo (TI-0021):</strong> Autorizar horas de desarrollo para módulo de archivos de clientes.</li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
