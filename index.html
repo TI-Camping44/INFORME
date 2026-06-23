@@ -197,7 +197,7 @@
 
         .kpi-sub { font-size: 12px; color: var(--text-muted); }
 
-        /* MESH WORKOUT LAYOUT (DISTRIBUCIÓN EN 2 COLUMNAS) */
+        /* WORKSPACE LAYOUT (2 COLUMNAS) */
         .workspace-layout {
             display: grid;
             grid-template-columns: 1fr 360px;
@@ -407,108 +407,26 @@
 
         .obs-text { color: #475569; font-size: 13px; line-height: 1.45; }
 
-        /* PROYECTOS ESTRATÉGICOS */
-        .extra-panel {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid #0284c7;
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-        }
-
-        .extra-header {
+        /* COLUMNA DERECHA (SIDEBAR FLOW) */
+        .sidebar-area {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .extra-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .tag-extra {
-            background: #e0f2fe;
-            color: #0369a1;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: var(--radius-sm);
-            text-transform: uppercase;
-        }
-
-        .progress-container { margin-bottom: 20px; }
-
-        .progress-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 6px;
-        }
-
-        .progress-bar-track {
-            width: 100%;
-            height: 12px;
-            background-color: #f1f5f9;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0284c7, #0ea5e9);
-            width: 53%;
-            border-radius: 6px;
-        }
-
-        .extra-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        @media(max-width: 600px) { .extra-grid { grid-template-columns: 1fr; } }
-
-        .extra-card {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 16px;
-            border-radius: var(--radius-md);
-        }
-
-        .extra-card-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #0284c7;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        /* SIDEBAR PANEL: RECUPERACIÓN DE SERVIDOR HANSA */
-        .sidebar-panel {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-top: 5px solid #ef4444; /* Alerta crítica */
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            flex-direction: column;
+            gap: 24px;
             position: sticky;
             top: 24px;
         }
 
-        .sidebar-header {
-            margin-bottom: 18px;
+        /* SIDEBAR PANEL 1: HANSA */
+        .sidebar-panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-top: 5px solid #ef4444;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
+
+        .sidebar-header { margin-bottom: 16px; }
 
         .sidebar-title {
             font-size: 16px;
@@ -520,10 +438,7 @@
             gap: 8px;
         }
 
-        .sidebar-subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
+        .sidebar-subtitle { font-size: 13px; color: var(--text-muted); }
 
         .hansa-status-badge {
             display: inline-block;
@@ -545,10 +460,7 @@
             padding-top: 16px;
         }
 
-        .info-item {
-            display: flex;
-            flex-direction: column;
-        }
+        .info-item { display: flex; flex-direction: column; }
 
         .info-label {
             font-size: 11px;
@@ -559,30 +471,108 @@
             margin-bottom: 2px;
         }
 
-        .info-val {
-            font-size: 13.5px;
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .info-val.alert-text {
-            color: #b91c1c;
-            font-weight: 600;
-        }
+        .info-val { font-size: 13.5px; color: var(--text-main); font-weight: 500; }
+        .info-val.alert-text { color: #b91c1c; font-weight: 600; }
 
         .tech-quote-box {
-            margin-top: 16px;
+            margin-top: 12px;
             background-color: #f8fafc;
             border-left: 3px solid #cbd5e1;
             padding: 12px;
             border-radius: 0 var(--radius-md) var(--radius-md) 0;
         }
 
-        .tech-quote-text {
+        .tech-quote-text { font-size: 12.5px; color: #475569; font-style: italic; line-height: 1.5; }
+
+        /* SIDEBAR PANEL 2: PROYECTOS ESTRATÉGICOS (MOVED HERE) */
+        .extra-panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid #0284c7;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .extra-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .extra-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .extra-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .tag-extra {
+            align-self: flex-start;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            width: fit-content;
+        }
+
+        .progress-container { margin-top: 12px; margin-bottom: 16px; }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
             font-size: 12.5px;
+            font-weight: 600;
             color: #475569;
-            font-style: italic;
-            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 10px;
+            background-color: #f1f5f9;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0284c7, #0ea5e9);
+            width: 53%;
+            border-radius: 6px;
+        }
+
+        /* Modificado a 1 sola columna para encajar en el Sidebar */
+        .extra-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .extra-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px;
+            border-radius: var(--radius-md);
+        }
+
+        .extra-card-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0284c7;
+            text-transform: uppercase;
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -790,7 +780,7 @@
                                     <td><strong>Administración</strong></td>
                                     <td><span class="p-pill Crítica">Crítica</span></td>
                                     <td>Al imprimir recibos en Odoo no muestra todos los datos (Ej: Recibo nro 90012140).<br>
-                                        <a href="https://drive.google.com/open?id=1xT5t-LWXdsw1trDzY4pkjkQ2ZZul03IY" target="_blank" class="adjunto-link">📂 Ver PDF de ejemplo</a>
+                                        <a href="https://drive.google.com/open?id=1xT5t-LWXdsw1trDzY4pkjkQ2ZZul03IY" target="_blank" class="adjunto-link">📁 Ver PDF de ejemplo</a>
                                     </td>
                                     <td><span class="status-pill Resuelto">Resuelto</span></td>
                                     <td class="obs-text">Corrección de la plantilla XML de impresión en el servidor de Odoo.</td>
@@ -931,42 +921,8 @@
                     </div>
                 </div>
 
-                <div class="extra-panel">
-                    <div class="extra-header">
-                        <div class="extra-title">
-                            <span>Proyectos Estratégicos en Paralelo</span>
-                            <span class="tag-extra">Fuera de Formulario</span>
-                        </div>
-                        <span class="status-pill En_análisis" style="background:#e0f2fe; color:#0369a1; border: 1px solid #bae6fd;">Desarrollo Activo</span>
-                    </div>
-
-                    <h3 style="font-size: 15px; color: var(--c44-green-dark); margin-bottom: 8px;">
-                        Informe Looker Studio para Gestión Regulatoria
-                    </h3>
-
-                    <div class="progress-container">
-                        <div class="progress-labels">
-                            <span>Avance global de la implementación</span>
-                            <span style="color:#0284c7; font-weight:700; font-size: 14px;">53%</span>
-                        </div>
-                        <div class="progress-bar-track">
-                            <div class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-
-                    <div class="extra-grid">
-                        <div class="extra-card">
-                            <div class="extra-card-title">Hito cumplido (Viernes 19 de junio)</div>
-                            <p style="font-size: 13.5px; color: #334155;">Sesión de trabajo de base de datos junto a <strong>Fabricio Gómez</strong> para trazar el origen de la información y aislar las tablas que alimentarán el reporte.</p>
-                        </div>
-                        <div class="extra-card">
-                            <div class="extra-card-title">Fase actual en ejecución</div>
-                            <p style="font-size: 13.5px; color: #334155;">Trabajando simultáneamente en la <strong>edición visual de la interfaz</strong> en Looker y escribiendo la lógica de código para que la ingesta de datos sea automática.</p>
-                        </div>
-                    </div>
-                </div>
-
             </div> <div class="sidebar-area">
+                
                 <div class="sidebar-panel">
                     <div class="sidebar-header">
                         <div class="sidebar-title">
@@ -991,7 +947,7 @@
                         </div>
                         <div class="info-item">
                             <span class="info-label">Análisis Técnico</span>
-                            <span class="info-val">Daño severo localizado en la controladora electrónica del dispositivo.</span>
+                            <span class="info-val">Daño severo en la controladora electrónica del dispositivo.</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Especialista a Cargo</span>
@@ -1007,6 +963,42 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="extra-panel">
+                    <div class="extra-header">
+                        <div class="extra-title-group">
+                            <span class="extra-title">Proyectos Estratégicos</span>
+                            <span class="tag-extra">Fuera de Formulario</span>
+                        </div>
+                        <span class="status-pill En_análisis" style="background:#e0f2fe; color:#0369a1; border: 1px solid #bae6fd; padding: 4px 8px; font-size: 11px;">Desarrollo Activo</span>
+                    </div>
+
+                    <h3 style="font-size: 13.5px; color: var(--c44-green-dark); margin-top: 4px; margin-bottom: 4px; font-weight: 700;">
+                        Informe Looker Studio para Gestión Regulatoria
+                    </h3>
+
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>Avance Global</span>
+                            <span style="color:#0284c7; font-weight:700;">53%</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="extra-grid">
+                        <div class="extra-card">
+                            <div class="extra-card-title">Hito cumplido (19/06)</div>
+                            <p style="font-size: 12.5px; color: #334155; line-height: 1.4;">Sesión de trabajo de base de datos junto a <strong>Fabricio Gómez</strong> para trazar el origen de la información y aislar las tablas analíticas.</p>
+                        </div>
+                        <div class="extra-card">
+                            <div class="extra-card-title">Fase actual</div>
+                            <p style="font-size: 12.5px; color: #334155; line-height: 1.4;">Edición visual de la interfaz gráfica en Looker Studio y codificación de las rutinas de ingesta automática de datos.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div> </div> </div>
 
     <script>
@@ -1039,10 +1031,7 @@
                 let res = 0;
                 let pend = 0;
 
-                // Contadores para gráfico de prioridades
                 let cCritica = 0; let cAlta = 0; let cMedia = 0;
-
-                // Contadores para gráfico de barras mensual
                 let monthCounts = { '4': 0, '5': 0, '6': 0 };
 
                 rows.forEach(row => {
@@ -1082,15 +1071,14 @@
                 const pct = tot > 0 ? Math.round((res / tot) * 100) : 0;
                 document.getElementById('kpi-tasa').innerText = pct + '%';
 
-                // Encontrar el valor máximo mensual para escalar proporcionalmente las alturas de las barras
                 const maxMonthCount = Math.max(...Object.values(monthCounts), 1);
 
-                // Renderizado reactivo de las barras CSS
+                // Renderizado dinámico de barras
                 for (let m in bars) {
                     const currentCount = monthCounts[m];
                     barVals[m].innerText = currentCount;
                     
-                    const heightPercentage = (currentCount / maxMonthCount) * 95; // max 95% h
+                    const heightPercentage = (currentCount / maxMonthCount) * 95;
                     bars[m].style.height = currentCount > 0 ? `${Math.max(heightPercentage, 10)}%` : '4px';
 
                     if (monthVal === 'all' || monthVal === m) {
@@ -1102,7 +1090,7 @@
                     }
                 }
 
-                // Actualizar gráfico de barras de distribución de Prioridades
+                // Actualizar Prioridades
                 document.getElementById('count-critica').innerText = cCritica;
                 document.getElementById('fill-critica').style.width = tot > 0 ? (cCritica/tot*100) + '%' : '0%';
                 
@@ -1118,7 +1106,6 @@
             selectStatus.addEventListener('change', runFilter);
             inputSearch.addEventListener('input', runFilter);
             
-            // Inicializar vista activa al cargar la página
             runFilter();
         });
     </script>
