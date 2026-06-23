@@ -1,6 +1,4 @@
-import os
-
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -149,7 +147,7 @@ html_content = """<!DOCTYPE html>
 
         .kpi-sub { font-size: 12px; color: var(--text-muted); }
 
-        /* 3. GRÁFICOS VISUALES PURE CSS (SIN LIBRERÍAS EXTERNAS) */
+        /* 3. GRÁFICOS VISUALES PURE CSS */
         .visual-summary-grid {
             display: grid;
             grid-template-columns: 3fr 2fr;
@@ -180,7 +178,6 @@ html_content = """<!DOCTYPE html>
             justify-content: space-between;
         }
 
-        /* Barra de meses CSS */
         .css-bar-chart {
             display: flex;
             align-items: flex-end;
@@ -228,7 +225,6 @@ html_content = """<!DOCTYPE html>
             color: var(--text-muted);
         }
 
-        /* Desglose de Prioridades */
         .priority-list {
             display: flex;
             flex-direction: column;
@@ -246,9 +242,9 @@ html_content = """<!DOCTYPE html>
         .p-name { width: 70px; font-size: 13px; font-weight: 600; }
         .p-track { flex-grow: 1; height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
         .p-fill { height: 100%; border-radius: 5px; }
-        .p-fill.critica { background: #ef4444; width: 28.5%; } /* 6 de 21 */
-        .p-fill.alta { background: #f97316; width: 47.6%; }    /* 10 de 21 */
-        .p-fill.media { background: #3b82f6; width: 23.8%; }   /* 5 de 21 */
+        .p-fill.critica { background: #ef4444; width: 28.5%; }
+        .p-fill.alta { background: #f97316; width: 47.6%; }
+        .p-fill.media { background: #3b82f6; width: 23.8%; }
         .p-count { font-size: 13px; font-weight: 700; width: 30px; text-align: right; }
 
         /* 4. TABLA PRINCIPAL */
@@ -258,6 +254,7 @@ html_content = """<!DOCTYPE html>
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            margin-bottom: 24px;
         }
 
         .table-wrap { overflow-x: auto; }
@@ -318,13 +315,108 @@ html_content = """<!DOCTYPE html>
         .adjunto-link:hover { text-decoration: underline; }
 
         .obs-text { color: #475569; font-size: 13px; line-height: 1.4; }
+
+        /* 5. SECCIÓN DE REQUERIMIENTOS FUERA DE FORMULARIO */
+        .extra-panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid #0284c7; /* Acento azul cielo para distinguirlo */
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .extra-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .extra-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag-extra {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 12px;
+            background-color: #f1f5f9;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0284c7, #0ea5e9);
+            width: 53%;
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .extra-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media(max-width: 768px) {
+            .extra-grid { grid-template-columns: 1fr; }
+        }
+
+        .extra-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 8px;
+        }
+
+        .extra-card-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #0284c7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
     </style>
 </head>
 <body>
 
     <div class="dashboard">
         
-        <!-- HEADER INTERACTIVO PARA EL EXPOSITOR -->
+        <!-- HEADER INTERACTIVO -->
         <div class="header-panel">
             <div class="title-area">
                 <h1>Gestión y Soporte TI — Camping 44</h1>
@@ -647,16 +739,51 @@ html_content = """<!DOCTYPE html>
             </div>
         </div>
 
+        <!-- SECCIÓN 5: REQUERIMIENTOS EXTRA (SIN TICKET DE FORMULARIO) -->
+        <div class="extra-panel">
+            <div class="extra-header">
+                <div class="extra-title">
+                    <span>Proyectos Estratégicos en Paralelo</span>
+                    <span class="tag-extra">Fuera de Formulario</span>
+                </div>
+                <span class="status-pill En_análisis" style="background:#e0f2fe; color:#0369a1; border: 1px solid #bae6fd;">Desarrollo Activo</span>
+            </div>
+
+            <h3 style="font-size: 15px; color: var(--c44-green); margin-bottom: 8px;">
+                Informe Looker Studio para Gestión Regulatoria
+            </h3>
+
+            <div class="progress-container">
+                <div class="progress-labels">
+                    <span>Avance global de la implementación</span>
+                    <span style="color:#0284c7; font-weight:700; font-size: 14px;">53%</span>
+                </div>
+                <div class="progress-bar-track">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="extra-grid">
+                <div class="extra-card">
+                    <div class="extra-card-title">Hito cumplido (Viernes 19 de junio)</div>
+                    <p style="font-size: 13px; color: #334155;">Sesión de trabajo de base de datos junto a <strong>Fabricio Gómez</strong> para trazar el origen de la información y aislar las tablas que alimentarán el reporte.</p>
+                </div>
+                <div class="extra-card">
+                    <div class="extra-card-title">Fase actual en ejecución</div>
+                    <p style="font-size: 13px; color: #334155;">Trabajando simultáneamente en la <strong>edición visual de la interfaz</strong> en Looker y escribiendo la lógica de código para que la ingesta de datos sea automática.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- SCRIPT DE FILTRADO EN TIEMPO REAL PARA EL EXPOSITOR -->
+    <!-- SCRIPT DE FILTRADO EN TIEMPO REAL -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const selectMonth = document.getElementById('filterMonth');
             const inputSearch = document.getElementById('filterSearch');
             const rows = document.querySelectorAll('.t-row');
 
-            // Barras del gráfico
             const bars = {
                 '4': document.getElementById('bar-4'),
                 '5': document.getElementById('bar-5'),
@@ -689,7 +816,6 @@ html_content = """<!DOCTYPE html>
                     }
                 });
 
-                // Actualizar números KPI
                 document.getElementById('kpi-total').innerText = tot;
                 document.getElementById('kpi-resueltos').innerText = res;
                 document.getElementById('kpi-pendientes').innerText = pend;
@@ -697,7 +823,6 @@ html_content = """<!DOCTYPE html>
                 const pct = tot > 0 ? Math.round((res / tot) * 100) : 0;
                 document.getElementById('kpi-tasa').innerText = pct + '%';
 
-                // Efecto visual en las barras del gráfico al cambiar de mes
                 for (let m in bars) {
                     if (monthVal === 'all' || monthVal === m) {
                         bars[m].style.opacity = '1';
@@ -715,10 +840,3 @@ html_content = """<!DOCTYPE html>
     </script>
 </body>
 </html>
-"""
-
-# Guardar index.html para la web del usuario
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print("index.html 100% humanizado, flexible e interactivo generado con éxito.")
