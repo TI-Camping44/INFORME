@@ -106,7 +106,7 @@
             cursor: text;
             font-weight: 400;
             color: var(--text-main);
-            width: 180px;
+            width: 170px;
         }
 
         /* 2. TARJETAS DE INDICADORES (KPIs DINÁMICOS) */
@@ -241,7 +241,7 @@
 
         .p-name { width: 70px; font-size: 13px; font-weight: 600; }
         .p-track { flex-grow: 1; height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
-        .p-fill { height: 100%; border-radius: 5px; }
+        .p-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
         .p-fill.critica { background: #ef4444; width: 28.5%; }
         .p-fill.alta { background: #f97316; width: 47.6%; }
         .p-fill.media { background: #3b82f6; width: 23.8%; }
@@ -316,11 +316,11 @@
 
         .obs-text { color: #475569; font-size: 13px; line-height: 1.4; }
 
-        /* 5. SECCIÓN DE REQUERIMIENTOS FUERA DE FORMULARIO */
+        /* 5. SECCIÓN DE REQUERIMIENTOS EXTRA */
         .extra-panel {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-left: 5px solid #0284c7; /* Acento azul cielo para distinguirlo */
+            border-left: 5px solid #0284c7;
             border-radius: 12px;
             padding: 24px 28px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
@@ -356,9 +356,7 @@
             letter-spacing: 0.5px;
         }
 
-        .progress-container {
-            margin-bottom: 20px;
-        }
+        .progress-container { margin-bottom: 20px; }
 
         .progress-labels {
             display: flex;
@@ -423,6 +421,7 @@
                 <p>Panel operativo de seguimiento de solicitudes, soporte a las áreas y estado de tickets</p>
             </div>
             <div class="controls-area">
+                <!-- Selector de Mes -->
                 <div class="control-group">
                     <label for="filterMonth">Mes:</label>
                     <select id="filterMonth">
@@ -432,9 +431,20 @@
                         <option value="6">Junio (4)</option>
                     </select>
                 </div>
+                <!-- Selector de Prioridad -->
+                <div class="control-group">
+                    <label for="filterPriority">Prioridad:</label>
+                    <select id="filterPriority">
+                        <option value="all">Todas</option>
+                        <option value="Crítica">Críticas (6)</option>
+                        <option value="Alta">Altas (10)</option>
+                        <option value="Media">Medias (5)</option>
+                    </select>
+                </div>
+                <!-- Buscador -->
                 <div class="control-group">
                     <label for="filterSearch">🔍</label>
-                    <input type="text" id="filterSearch" placeholder="Buscar ticket, área, palabra...">
+                    <input type="text" id="filterSearch" placeholder="Buscar ticket, área...">
                 </div>
             </div>
         </div>
@@ -469,7 +479,7 @@
             <div class="chart-box">
                 <div class="chart-header">
                     <span>Volumen de Tickets por Mes</span>
-                    <span style="font-weight:400; font-size:13px; color:#64748b;">Click en el selector de arriba para aislar</span>
+                    <span style="font-weight:400; font-size:13px; color:#64748b;">Click en los selectores de arriba para aislar</span>
                 </div>
                 <div class="css-bar-chart">
                     <div class="bar-item">
@@ -498,18 +508,18 @@
                 <div class="priority-list">
                     <div class="p-row">
                         <span class="p-name">Crítica</span>
-                        <div class="p-track"><div class="p-fill critica"></div></div>
-                        <span class="p-count">6</span>
+                        <div class="p-track"><div class="p-fill critica" id="fill-critica"></div></div>
+                        <span class="p-count" id="count-critica">6</span>
                     </div>
                     <div class="p-row">
                         <span class="p-name">Alta</span>
-                        <div class="p-track"><div class="p-fill alta"></div></div>
-                        <span class="p-count">10</span>
+                        <div class="p-track"><div class="p-fill alta" id="fill-alta"></div></div>
+                        <span class="p-count" id="count-alta">10</span>
                     </div>
                     <div class="p-row">
                         <span class="p-name">Media</span>
-                        <div class="p-track"><div class="p-fill media"></div></div>
-                        <span class="p-count">5</span>
+                        <div class="p-track"><div class="p-fill media" id="fill-media"></div></div>
+                        <span class="p-count" id="count-media">5</span>
                     </div>
                 </div>
             </div>
@@ -534,7 +544,7 @@
                     <tbody id="ticketBody">
                         
                         <!-- ABRIL -->
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Crítica" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0006</span></td>
                             <td>18/04/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -543,7 +553,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Falla de hardware solucionada en el día. Salón operativo.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0007</span></td>
                             <td>20/04/2026</td>
                             <td><strong>Marketing</strong></td>
@@ -552,7 +562,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Reconfiguración de cola de impresión y ruteo de red.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Media" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0008</span></td>
                             <td>20/04/2026</td>
                             <td><strong>Administración</strong></td>
@@ -561,7 +571,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Accesos y permisos de listas de distribución otorgados.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Media" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0009</span></td>
                             <td>20/04/2026</td>
                             <td><strong>Administración</strong></td>
@@ -570,7 +580,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Inclusión en grupos institucionales de Exchange finalizada.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Media" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0008</span></td>
                             <td>21/04/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -579,7 +589,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Mapeo de puerto IP remoto completado con éxito.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0009</span></td>
                             <td>24/04/2026</td>
                             <td><strong>Marketing</strong></td>
@@ -590,7 +600,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Se aplicaron filtros de seguridad y moderación de palabras clave en Meta.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Crítica" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0010</span></td>
                             <td>27/04/2026</td>
                             <td><strong>Administración</strong></td>
@@ -601,7 +611,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Corrección de la plantilla XML de impresión en el servidor de Odoo.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Crítica" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0011</span></td>
                             <td>27/04/2026</td>
                             <td><strong>Administración</strong></td>
@@ -610,7 +620,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Ajuste en los permisos de flujo de stock automático para perfiles de venta.</td>
                         </tr>
-                        <tr class="t-row" data-month="4" data-status="Resuelto">
+                        <tr class="t-row" data-month="4" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0009</span></td>
                             <td>30/04/2026</td>
                             <td><strong>Depósito</strong></td>
@@ -621,7 +631,7 @@
                         </tr>
 
                         <!-- MAYO -->
-                        <tr class="t-row" data-month="5" data-status="Resuelto">
+                        <tr class="t-row" data-month="5" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0010</span></td>
                             <td>06/05/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -630,7 +640,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Se desarrolló un script de extracción automática diaria. Proceso 100% autónomo.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Resuelto">
+                        <tr class="t-row" data-month="5" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0011</span></td>
                             <td>06/05/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -639,7 +649,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Limpieza de vista de Excel en Odoo. Implementación de selector directo de marcas.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Resuelto">
+                        <tr class="t-row" data-month="5" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0012</span></td>
                             <td>06/05/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -648,7 +658,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Tablero unificado en Looker Studio conectado a la base de Odoo en tiempo real.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Pendiente">
+                        <tr class="t-row" data-month="5" data-priority="Alta" data-status="Pendiente">
                             <td><span class="ticket-num">TI-0013</span></td>
                             <td>20/05/2026</td>
                             <td><strong>Administración</strong></td>
@@ -657,7 +667,7 @@
                             <td><span class="status-pill En_análisis">En Análisis</span></td>
                             <td class="obs-text">Pendiente de aprobación de presupuesto y definición de política de asignación de equipos móviles.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Resuelto">
+                        <tr class="t-row" data-month="5" data-priority="Crítica" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0014</span></td>
                             <td>21/05/2026</td>
                             <td><strong>Marketing</strong></td>
@@ -666,7 +676,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Falla de enlace API resuelta con Meta. Tráfico entrante normalizado.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Resuelto">
+                        <tr class="t-row" data-month="5" data-priority="Media" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0015</span></td>
                             <td>26/05/2026</td>
                             <td><strong>Administración</strong></td>
@@ -675,7 +685,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Reinstalación limpia de controladores y reseteo de la memoria de red de la impresora.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Resuelto">
+                        <tr class="t-row" data-month="5" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0016</span></td>
                             <td>29/05/2026</td>
                             <td><strong>Capital Humano</strong></td>
@@ -684,7 +694,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Permisos otorgados en el perfil de usuario de Odoo.</td>
                         </tr>
-                        <tr class="t-row" data-month="5" data-status="Pendiente">
+                        <tr class="t-row" data-month="5" data-priority="Media" data-status="Pendiente">
                             <td><span class="ticket-num">TI-0017</span></td>
                             <td>29/05/2026</td>
                             <td><strong>Capital Humano</strong></td>
@@ -695,7 +705,7 @@
                         </tr>
 
                         <!-- JUNIO -->
-                        <tr class="t-row" data-month="6" data-status="Resuelto">
+                        <tr class="t-row" data-month="6" data-priority="Alta" data-status="Resuelto">
                             <td><span class="ticket-num">TI-0018</span></td>
                             <td>03/06/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -704,7 +714,7 @@
                             <td><span class="status-pill Resuelto">Resuelto</span></td>
                             <td class="obs-text">Asistencia remota completada. Equipo imprimiendo correctamente.</td>
                         </tr>
-                        <tr class="t-row" data-month="6" data-status="Pendiente">
+                        <tr class="t-row" data-month="6" data-priority="Alta" data-status="Pendiente">
                             <td><span class="ticket-num">TI-0019</span></td>
                             <td>08/06/2026</td>
                             <td><strong>Ventas</strong></td>
@@ -713,7 +723,7 @@
                             <td><span class="status-pill Nuevo">Nuevo</span></td>
                             <td class="obs-text">En desarrollo. Ajustando la compresión de las imágenes para que el reporte se genere rápido y no congele Odoo.</td>
                         </tr>
-                        <tr class="t-row" data-month="6" data-status="Pendiente">
+                        <tr class="t-row" data-month="6" data-priority="Media" data-status="Pendiente">
                             <td><span class="ticket-num">TI-0020</span></td>
                             <td>16/06/2026</td>
                             <td><strong>Regulaciones</strong></td>
@@ -722,7 +732,7 @@
                             <td><span class="status-pill Nuevo">Nuevo</span></td>
                             <td class="obs-text">Visita técnica coordinada en la sucursal para verificar cableado y estado del sensor.</td>
                         </tr>
-                        <tr class="t-row" data-month="6" data-status="Pendiente">
+                        <tr class="t-row" data-month="6" data-priority="Crítica" data-status="Pendiente">
                             <td><span class="ticket-num">TI-0021</span></td>
                             <td>19/06/2026</td>
                             <td><strong>Operaciones</strong></td>
@@ -739,7 +749,7 @@
             </div>
         </div>
 
-        <!-- SECCIÓN 5: REQUERIMIENTOS EXTRA (SIN TICKET DE FORMULARIO) -->
+        <!-- SECCIÓN 5: REQUERIMIENTOS EXTRA -->
         <div class="extra-panel">
             <div class="extra-header">
                 <div class="extra-title">
@@ -777,10 +787,11 @@
 
     </div>
 
-    <!-- SCRIPT DE FILTRADO EN TIEMPO REAL -->
+    <!-- SCRIPT DE FILTRADO EN TIEMPO REAL COMBINADO -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const selectMonth = document.getElementById('filterMonth');
+            const selectPriority = document.getElementById('filterPriority');
             const inputSearch = document.getElementById('filterSearch');
             const rows = document.querySelectorAll('.t-row');
 
@@ -792,30 +803,43 @@
 
             function runFilter() {
                 const monthVal = selectMonth.value;
+                const priorityVal = selectPriority.value;
                 const query = inputSearch.value.toLowerCase().trim();
 
                 let tot = 0;
                 let res = 0;
                 let pend = 0;
 
+                // Contadores dinámicos para el gráfico de prioridades
+                let cCritica = 0;
+                let cAlta = 0;
+                let cMedia = 0;
+
                 rows.forEach(row => {
                     const rMonth = row.getAttribute('data-month');
+                    const rPriority = row.getAttribute('data-priority');
                     const rStatus = row.getAttribute('data-status');
                     const rText = row.innerText.toLowerCase();
 
                     const matchM = (monthVal === 'all' || rMonth === monthVal);
+                    const matchP = (priorityVal === 'all' || rPriority === priorityVal);
                     const matchQ = (query === '' || rText.includes(query));
 
-                    if (matchM && matchQ) {
+                    if (matchM && matchP && matchQ) {
                         row.style.display = '';
                         tot++;
                         if (rStatus === 'Resuelto') res++;
                         else pend++;
+
+                        if (rPriority === 'Crítica') cCritica++;
+                        else if (rPriority === 'Alta') cAlta++;
+                        else if (rPriority === 'Media') cMedia++;
                     } else {
                         row.style.display = 'none';
                     }
                 });
 
+                // Actualizar números KPI
                 document.getElementById('kpi-total').innerText = tot;
                 document.getElementById('kpi-resueltos').innerText = res;
                 document.getElementById('kpi-pendientes').innerText = pend;
@@ -823,6 +847,7 @@
                 const pct = tot > 0 ? Math.round((res / tot) * 100) : 0;
                 document.getElementById('kpi-tasa').innerText = pct + '%';
 
+                // Efecto en las barras de meses
                 for (let m in bars) {
                     if (monthVal === 'all' || monthVal === m) {
                         bars[m].style.opacity = '1';
@@ -832,9 +857,20 @@
                         bars[m].classList.remove('active');
                     }
                 }
+
+                // Actualizar dinámicamente el cuadro de Prioridades
+                document.getElementById('count-critica').innerText = cCritica;
+                document.getElementById('fill-critica').style.width = tot > 0 ? (cCritica/tot*100) + '%' : '0%';
+                
+                document.getElementById('count-alta').innerText = cAlta;
+                document.getElementById('fill-alta').style.width = tot > 0 ? (cAlta/tot*100) + '%' : '0%';
+                
+                document.getElementById('count-media').innerText = cMedia;
+                document.getElementById('fill-media').style.width = tot > 0 ? (cMedia/tot*100) + '%' : '0%';
             }
 
             selectMonth.addEventListener('change', runFilter);
+            selectPriority.addEventListener('change', runFilter);
             inputSearch.addEventListener('input', runFilter);
         });
     </script>
