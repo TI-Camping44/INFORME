@@ -484,7 +484,7 @@
 
         .tech-quote-text { font-size: 12.5px; color: #475569; font-style: italic; line-height: 1.5; }
 
-        /* SIDEBAR PANEL 2: PROYECTOS ESTRATÉGICOS (MOVED HERE) */
+        /* SIDEBAR PANEL 2: PROYECTOS ESTRATÉGICOS */
         .extra-panel {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -553,7 +553,6 @@
             border-radius: 6px;
         }
 
-        /* Modificado a 1 sola columna para encajar en el Sidebar */
         .extra-grid {
             display: flex;
             flex-direction: column;
@@ -611,11 +610,12 @@
                 <div class="control-group">
                     <label for="filterStatus">Estado:</label>
                     <select id="filterStatus">
-                        <option value="all">Todos</option>
+                        <option value="all">Todos (21)</option>
                         <option value="Resuelto">Resuelto (16)</option>
-                        <option value="En_análisis">En Análisis (1)</option>
-                        <option value="Espera_prov">Espera Prov. (1)</option>
-                        <option value="Nuevo">Nuevo (3)</option>
+                        <option value="Pendiente">Pendiente [Global] (5)</option>
+                        <option value="En_análisis">↳ En Análisis (1)</option>
+                        <option value="Espera_prov">↳ Espera Prov. (1)</option>
+                        <option value="Nuevo">↳ Nuevo (3)</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -780,7 +780,7 @@
                                     <td><strong>Administración</strong></td>
                                     <td><span class="p-pill Crítica">Crítica</span></td>
                                     <td>Al imprimir recibos en Odoo no muestra todos los datos (Ej: Recibo nro 90012140).<br>
-                                        <a href="https://drive.google.com/open?id=1xT5t-LWXdsw1trDzY4pkjkQ2ZZul03IY" target="_blank" class="adjunto-link">📁 Ver PDF de ejemplo</a>
+                                        <a href="https://drive.google.com/open?id=1xT5t-LWXdsw1trDzY4pkjkQ2ZZul03IY" target="_blank" class="adjunto-link">📂 Ver PDF de ejemplo</a>
                                     </td>
                                     <td><span class="status-pill Resuelto">Resuelto</span></td>
                                     <td class="obs-text">Corrección de la plantilla XML de impresión en el servidor de Odoo.</td>
@@ -1042,7 +1042,13 @@
 
                     const matchM = (monthVal === 'all' || rMonth === monthVal);
                     const matchP = (priorityVal === 'all' || rPriority === priorityVal);
-                    const matchS = (statusVal === 'all' || rStatus === statusVal);
+                    
+                    // LÓGICA DE FILTRADO MAESTRA PARA "PENDIENTE"
+                    // Si el usuario elige 'Pendiente', se incluye todo lo que NO sea 'Resuelto'
+                    const matchS = (statusVal === 'all' || 
+                                    (statusVal === 'Pendiente' && rStatus !== 'Resuelto') || 
+                                    rStatus === statusVal);
+                                    
                     const matchQ = (query === '' || rText.includes(query));
 
                     if (matchM && matchP && matchS && matchQ) {
