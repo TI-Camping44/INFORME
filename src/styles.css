@@ -7,7 +7,7 @@
   --rule: rgba(154, 161, 171, 0.20);   /* divisorias: gris al 20% */
   --box: rgba(154, 161, 171, 0.42);    /* bordes de cajas y conectores */
   --margin: 72px;
-  --col: 432px;                         /* columna de contenido: 72 → 504 */
+  --col: 392px;                         /* columna de contenido: 72 → 464 */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Título ---------- */
 .title {
   position: absolute;
-  top: 168px; left: var(--margin);
+  top: 150px; left: var(--margin);
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
   font-size: 86px;
@@ -57,8 +57,8 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Foto ---------- */
 .photo {
   position: absolute;
-  right: 20px; bottom: 0;
-  width: 520px;
+  right: 6px; bottom: 0;              /* codos completos dentro del cuadro */
+  width: 581px;                        /* cabeza a la altura de la fila de números */
   height: auto;
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
 }
@@ -80,13 +80,13 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 }
 
 /* Datos */
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); }
-.stat { padding-left: 22px; border-left: 1px solid var(--rule); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); width: 432px; } /* sobre los hombros hay lugar */
+.stat { padding-left: 20px; border-left: 1px solid var(--rule); }
 .stat:first-child { padding-left: 0; border-left: 0; }
 .stat .num {
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
-  font-size: 64px;
+  font-size: 60px;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ivory);
@@ -97,12 +97,24 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
   display: flex; justify-content: space-between; align-items: baseline;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--rule);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-svg text { font-family: "JetBrains Mono", monospace; }
+/* Release notes */
+.notes { list-style: none; }
+.notes li {
+  display: flex; align-items: baseline;
+  font-size: 18px; line-height: 31px; font-weight: 400;
+  color: var(--ivory);
+  white-space: nowrap;
+}
+.notes .plus {
+  flex: 0 0 24px;
+  font-family: "JetBrains Mono", monospace; font-weight: 500;
+  color: var(--gold);
+}
 
 /* Pie */
-.footer { position: absolute; left: var(--margin); width: var(--col); padding-top: 24px; border-top: 1px solid var(--rule); }
-.footer .role { font-weight: 600; font-size: 30px; letter-spacing: -0.01em; color: var(--ivory); }
+.footer { position: absolute; left: var(--margin); width: var(--col); padding-top: 20px; border-top: 1px solid var(--rule); }
+.footer .role { font-weight: 600; font-size: 29px; letter-spacing: -0.01em; color: var(--ivory); }
 .footer .tag { margin-top: 8px; font-weight: 400; font-size: 20px; color: var(--gray); }
