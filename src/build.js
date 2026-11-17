@@ -12,19 +12,19 @@ const C = { ivory: '#F3EEE6', gray: '#9AA1AB', gold: '#F2B33D', bg: '#121417',
             box: 'rgba(154,161,171,0.42)' };
 
 const GROUPS = [
-  ['Desarrollé', [
+  ['Desarrollé', ['Next.js', 'Supabase', 'PostgreSQL', 'Vercel', 'Apps Script'], [
     'Intranet de la empresa',
     'Ticketera de TI con panel web',
     'Gestor de rutas con GPS para vendedores',
     '5 tableros de gestión por área',
   ]],
-  ['Automaticé', [
+  ['Automaticé', ['Python', 'JavaScript', 'SQL', 'Google Sheets', 'Odoo JSON-RPC'], [
     'Liquidación de salarios: recibos, IPS y banco',
     'Cálculo de comisiones',
     'Lista de precios y stock desde Odoo',
     'Alertas de stock y rotación ABC',
   ]],
-  ['Integré', [
+  ['Integré', ['Odoo 17', 'QWeb', 'XML-RPC', 'SIFEN', 'Google Workspace'], [
     'Facturación electrónica (SIFEN) en Odoo 17',
     'Odoo con el e-commerce',
     'Odoo con Google Workspace vía Apps Script',
@@ -32,15 +32,21 @@ const GROUPS = [
 ];
 
 // Posiciones verticales (px CSS) de cada bloque
-const L = { stats: 392, groups: 535, footer: 1172 };
+const FOOTER_TECH = ['PYTHON', 'JAVASCRIPT', 'SQL', 'APPS SCRIPT', 'ODOO 17'];
+
+const L = { stats: 376, groups: 508, footer: 1150 };
+
+// Línea de tecnologías: palabras separadas por " · "
+const tech = words => `<div class="tech">${words.join('<span class="sep"> · </span>')}</div>`;
 
 function page() {
-  const groups = GROUPS.map(([title, items]) => `
+  const groups = GROUPS.map(([title, stack, items]) => `
     <div class="group">
       <div class="section-head"><span class="label">${title}</span></div>
       <ul class="notes">
         ${items.map(t => `<li><span class="plus">+</span>${t}</li>`).join('\n        ')}
       </ul>
+      ${tech(stack)}
     </div>`).join('');
   return `<!doctype html>
 <html lang="es">
@@ -77,6 +83,7 @@ function page() {
   <footer class="footer" style="top:${L.footer}px">
     <div class="role">Responsable de Tecnología</div>
     <div class="tag">Sistemas y automatización para PyMEs</div>
+    ${tech(FOOTER_TECH)}
   </footer>
 
 </main>
@@ -103,11 +110,11 @@ function page() {
   // --- Verificación: aire entre cada texto/caja y la silueta de la foto ---
   const info = await p.evaluate(() => {
     const img = document.querySelector('.photo').getBoundingClientRect();
-    const els = [...document.querySelectorAll('.content .num, .content .label, .notes li, .section-head, .footer .role, .footer .tag, .footer')];
+    const els = [...document.querySelectorAll('.content .num, .content .label, .notes li, .tech, .section-head, .footer .role, .footer .tag, .footer')];
     const boxes = els.map(e => {
       let r = e.getBoundingClientRect();
       // para bloques de texto, medir el ancho real del texto (no el del contenedor)
-      if (e.tagName === 'LI' || e.classList.contains('role') || e.classList.contains('tag')) {
+      if (e.tagName === 'LI' || e.classList.contains('role') || e.classList.contains('tag') || e.classList.contains('tech')) {
         const range = document.createRange(); range.selectNodeContents(e); r = range.getBoundingClientRect();
       }
       return { name: (e.textContent || e.tagName).trim().slice(0, 40) || e.tagName, x0: r.left, x1: r.right, y0: r.top, y1: r.bottom };
