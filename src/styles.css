@@ -43,7 +43,7 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Título ---------- */
 .title {
   position: absolute;
-  top: 140px; left: var(--margin);
+  top: 134px; left: var(--margin);
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
   font-size: 86px;
@@ -57,7 +57,7 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Foto ---------- */
 .photo {
   position: absolute;
-  right: 6px; bottom: -118px;         /* mismo tamaño; corre hacia abajo para dejar aire a las líneas técnicas (codos siguen dentro) */
+  right: 6px; bottom: -140px;         /* mismo tamaño; corre hacia abajo para dejar aire a las líneas técnicas (codos siguen dentro) */
   width: 527px;                        /* máximo que deja ~30 px de aire con los ítems más largos */
   height: auto;
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
@@ -103,14 +103,15 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 }
 
 /* Grupos: Desarrollé / Automaticé / Integré */
-.groups { display: flex; flex-direction: column; gap: 28px; }
+.groups { display: flex; flex-direction: column; gap: 22px; }
 .notes { list-style: none; }
 .notes li {
   display: flex; align-items: baseline;
-  font-size: 20px; line-height: 31px; font-weight: 400;
+  font-size: 20px; line-height: 29px; font-weight: 400;
   color: var(--ivory);
   white-space: nowrap;
 }
+.notes li.featured { font-weight: 600; font-size: 22px; line-height: 33px; } /* la intranet, lo más llamativo */
 .notes .plus {
   flex: 0 0 24px;
   font-family: "JetBrains Mono", monospace; font-weight: 500;

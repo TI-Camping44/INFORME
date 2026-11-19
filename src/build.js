@@ -13,10 +13,11 @@ const C = { ivory: '#F3EEE6', gray: '#9AA1AB', gold: '#F2B33D', bg: '#121417',
 
 const GROUPS = [
   ['Desarrollé', ['Next.js', 'Supabase', 'PostgreSQL', 'Vercel', 'Apps Script'], [
-    'Intranet de la empresa',
+    '*Intranet de la empresa',
+    'Sitio web de la empresa',
     'Ticketera de TI con panel web',
     'Gestor de rutas con GPS para vendedores',
-    '5 tableros de gestión por área',
+    'Gestor de visitas',
   ]],
   ['Automaticé', ['Python', 'JavaScript', 'SQL', 'Google Sheets', 'Odoo JSON-RPC'], [
     'Liquidación de nómina automatizada',
@@ -26,6 +27,7 @@ const GROUPS = [
   ]],
   ['Integré', ['Odoo 17', 'QWeb', 'XML-RPC', 'SIFEN', 'Google Workspace'], [
     'Facturación electrónica (SIFEN) en Odoo 17',
+    'Pagos con Bancard en la web',
     'Odoo con el e-commerce',
     'Odoo con Google Workspace vía Apps Script',
   ]],
@@ -34,7 +36,7 @@ const GROUPS = [
 // Posiciones verticales (px CSS) de cada bloque
 const FOOTER_TECH = ['PYTHON', 'JAVASCRIPT', 'SQL', 'APPS SCRIPT', 'ODOO 17'];
 
-const L = { stats: 376, groups: 508, footer: 1150 };
+const L = { stats: 368, groups: 496, footer: 1180 };
 
 // Línea de tecnologías: palabras separadas por " · "
 const tech = words => `<div class="tech">${words.join('<span class="sep"> · </span>')}</div>`;
@@ -44,7 +46,9 @@ function page() {
     <div class="group">
       <div class="section-head"><span class="label">${title}</span></div>
       <ul class="notes">
-        ${items.map(t => `<li><span class="plus">+</span>${t}</li>`).join('\n        ')}
+        ${items.map(t => t.startsWith('*')   // '*' = ítem destacado
+          ? `<li class="featured"><span class="plus">+</span>${t.slice(1)}</li>`
+          : `<li><span class="plus">+</span>${t}</li>`).join('\n        ')}
       </ul>
       ${tech(stack)}
     </div>`).join('');
