@@ -19,7 +19,7 @@ const GROUPS = [
     '5 tableros de gestión por área',
   ]],
   ['Automaticé', ['Python', 'JavaScript', 'SQL', 'Google Sheets', 'Odoo JSON-RPC'], [
-    'Liquidación de salarios: recibos, IPS y banco',
+    'Liquidación de nómina automatizada',
     'Cálculo de comisiones',
     'Lista de precios y stock desde Odoo',
     'Alertas de stock y rotación ABC',
