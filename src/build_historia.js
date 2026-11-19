@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
-const { GROUPS, tech, paraguayMap } = require('./build.js');
+const { GROUPS, paraguayMap } = require('./build.js');
 
 const SRC = __dirname;
 const OUT = path.join(SRC, '..', 'output');
@@ -14,23 +14,28 @@ const SAFE = { top: 250, bottom: 1640 };
 
 // Posiciones (px CSS)
 const L = {
-  header: 250, title: 334, stats: 560, groups: 694,
-  itemLH: 34, groupGap: 20, techGap: 8, groupWidth: 600,
-  footer: 1600,
+  header: 250, title: 334, stats: 560, groups: 700,
+  itemLH: 38, groupGap: 30, groupWidth: 520,
+  footer: 1594,
 };
-// Foto: más grande que en LinkedIn (553 px). Plano de pecho: el borde inferior corta por los brazos,
-// por encima de las manos y lejos de los codos.
-const PHOTO = { width: 615, left: 462, top: 1378 };
-const MAPPOS = { x: 458, y: 1410, k: 20 };
+// Historia: menos texto para que la foto entre grande, de la cintura para arriba.
+// 2 ítems por grupo (la lista completa va en el post) y sin líneas de tecnologías.
+const STORY_ITEMS = {
+  'Desarrollé': ['Intranet de la empresa', 'Sitio web de Vitalica'],
+  'Automaticé': ['Liquidación de nómina automatizada', 'Cálculo de comisiones'],
+  'Integré':    ['Facturación electrónica (SIFEN)', 'Pagos con Bancard en la web'],
+};
+// Foto: más grande que en LinkedIn (553 px); codos completos dentro del cuadro.
+const PHOTO = { width: 615, left: 462, top: 960 };
+const MAPPOS = { x: 72, y: 1236, k: 22 };
 
 function page() {
-  const groups = GROUPS.map(([title, stack, items], i) => `
+  const groups = GROUPS.map(([title]) => [title, STORY_ITEMS[title]]).map(([title, items], i) => `
     <div class="group" style="${i ? `margin-top:${L.groupGap}px;` : ''}width:${L.groupWidth}px">
       <div class="section-head"><span class="label">${title}</span></div>
       <ul class="notes">
         ${items.map(t => `<li style="line-height:${L.itemLH}px"><span class="plus">+</span>${t.replace(/^\*/, '')}</li>`).join('\n        ')}
       </ul>
-      <div style="margin-top:${L.techGap}px">${tech(stack)}</div>
     </div>`).join('');
 
   return `<!doctype html>
