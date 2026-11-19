@@ -13,9 +13,9 @@ const C = { ivory: '#F3EEE6', gray: '#9AA1AB', gold: '#F2B33D', bg: '#121417',
 
 // Tres frases generales: se leen de un vistazo en el feed (el detalle va en el texto del post)
 const STATEMENTS = [
-  ['Desarrollé', 'Herramientas a medida'],
-  ['Automaticé', 'Lo que era manual'],
-  ['Integré', 'Odoo con todo lo demás'],
+  ['Desarrollos', 'Herramientas a medida'],
+  ['Automatizaciones', 'Lo que era manual'],
+  ['Integraciones', 'Odoo con todo lo demás'],
 ];
 
 // Posiciones verticales (px CSS) de cada bloque
