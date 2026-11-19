@@ -7,7 +7,7 @@
   --rule: rgba(154, 161, 171, 0.20);   /* divisorias: gris al 20% */
   --box: rgba(154, 161, 171, 0.42);    /* bordes de cajas y conectores */
   --margin: 72px;
-  --col: 392px;                         /* columna de contenido: 72 → 464 */
+  --col: 452px;                         /* columna de contenido: 72 → 524 */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Título ---------- */
 .title {
   position: absolute;
-  top: 146px; left: var(--margin);
+  top: 140px; left: var(--margin);
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
   font-size: 86px;
@@ -57,8 +57,8 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Foto ---------- */
 .photo {
   position: absolute;
-  right: 6px; bottom: 0;              /* codos completos dentro del cuadro */
-  width: 581px;                        /* grande: cabeza a la altura de la fila de números */
+  right: 6px; bottom: -118px;         /* mismo tamaño; corre hacia abajo para dejar aire a las líneas técnicas (codos siguen dentro) */
+  width: 527px;                        /* máximo que deja ~30 px de aire con los ítems más largos */
   height: auto;
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
 }
@@ -81,35 +81,54 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 
 /* Datos */
 .stats { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; width: auto; }
-.stat { padding: 0 26px; border-left: 1px solid var(--rule); }
+.stat { padding: 0 32px; border-left: 1px solid var(--rule); }
 .stat .label { white-space: nowrap; }
 .stat:first-child { padding-left: 0; border-left: 0; }
 .stat .num .dot { color: var(--gold); }
 .stat .num {
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
-  font-size: 66px;
+  font-size: 60px;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ivory);
   margin-bottom: 12px;
 }
 
-/* Frases: verbo en mono + frase corta grande */
-.statements { display: flex; flex-direction: column; gap: 84px; }
-.statement { padding-top: 18px; border-top: 1px solid var(--rule); }
-.phrase {
-  margin-top: 6px;
-  font-weight: 600;
-  font-size: 33px;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+.section-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 12px;
+}
+
+/* Grupos: Desarrollé / Automaticé / Integré */
+.groups { display: flex; flex-direction: column; gap: 28px; }
+.notes { list-style: none; }
+.notes li {
+  display: flex; align-items: baseline;
+  font-size: 20px; line-height: 31px; font-weight: 400;
   color: var(--ivory);
   white-space: nowrap;
 }
-.phrase .dot { color: var(--gold); }
+.notes .plus {
+  flex: 0 0 24px;
+  font-family: "JetBrains Mono", monospace; font-weight: 500;
+  color: var(--gold);
+}
 
 /* Pie */
 .footer { position: absolute; left: var(--margin); width: var(--col); padding-top: 18px; border-top: 1px solid var(--rule); }
 .footer .role { font-weight: 600; font-size: 29px; letter-spacing: -0.01em; color: var(--ivory); }
 .footer .tag { margin-top: 4px; font-weight: 400; font-size: 20px; color: var(--gray); }
+
+/* Línea técnica: detalle, no protagonista */
+.tech {
+  margin-top: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px; line-height: 21px;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.footer .tech { margin-top: 10px; }
+.tech .sep { word-spacing: -0.3em; } /* espacios de " · " un poco más angostos que la celda mono completa */
