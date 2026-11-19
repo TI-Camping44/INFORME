@@ -7,7 +7,7 @@
   --rule: rgba(154, 161, 171, 0.20);   /* divisorias: gris al 20% */
   --box: rgba(154, 161, 171, 0.42);    /* bordes de cajas y conectores */
   --margin: 72px;
-  --col: 452px;                         /* columna de contenido: 72 → 524 */
+  --col: 510px;                         /* divisorias de grupo: 72 → 582 (cubren la línea técnica más larga) */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Título ---------- */
 .title {
   position: absolute;
-  top: 134px; left: var(--margin);
+  top: 128px; left: var(--margin);
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
   font-size: 86px;
@@ -57,8 +57,8 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 /* ---------- Foto ---------- */
 .photo {
   position: absolute;
-  right: 6px; bottom: -140px;         /* mismo tamaño; corre hacia abajo para dejar aire a las líneas técnicas (codos siguen dentro) */
-  width: 527px;                        /* máximo que deja ~30 px de aire con los ítems más largos */
+  right: 2px; top: 640px;             /* codos completos dentro del cuadro */
+  width: 553px;                        /* +5% respecto de la versión anterior (527 px) */
   height: auto;
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.55));
 }
@@ -103,15 +103,14 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 }
 
 /* Grupos: Desarrollé / Automaticé / Integré */
-.groups { display: flex; flex-direction: column; gap: 22px; }
+.groups { display: flex; flex-direction: column; gap: 18px; }
 .notes { list-style: none; }
 .notes li {
   display: flex; align-items: baseline;
-  font-size: 20px; line-height: 29px; font-weight: 400;
+  font-size: 20px; line-height: 28px; font-weight: 400;
   color: var(--ivory);
   white-space: nowrap;
 }
-.notes li.featured { font-weight: 600; font-size: 22px; line-height: 33px; } /* la intranet, lo más llamativo */
 .notes .plus {
   flex: 0 0 24px;
   font-family: "JetBrains Mono", monospace; font-weight: 500;
@@ -119,13 +118,13 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 }
 
 /* Pie */
-.footer { position: absolute; left: var(--margin); width: var(--col); padding-top: 18px; border-top: 1px solid var(--rule); }
+.footer { position: absolute; left: var(--margin); width: 434px; padding-top: 18px; border-top: 1px solid var(--rule); }
 .footer .role { font-weight: 600; font-size: 29px; letter-spacing: -0.01em; color: var(--ivory); }
 .footer .tag { margin-top: 4px; font-weight: 400; font-size: 20px; color: var(--gray); }
 
 /* Línea técnica: detalle, no protagonista */
 .tech {
-  margin-top: 10px;
+  margin-top: 8px;
   font-family: "JetBrains Mono", monospace;
   font-size: 16px; line-height: 21px;
   color: var(--gray);

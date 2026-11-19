@@ -13,11 +13,10 @@ const C = { ivory: '#F3EEE6', gray: '#9AA1AB', gold: '#F2B33D', bg: '#121417',
 
 const GROUPS = [
   ['Desarrollé', ['Next.js', 'Supabase', 'PostgreSQL', 'Vercel', 'Apps Script'], [
-    '*Intranet de la empresa',
-    'Sitio web de la empresa',
+    'Intranet de la empresa',
+    'Sitio web de Vitalica',
     'Ticketera de TI con panel web',
-    'Gestor de rutas con GPS para vendedores',
-    'Gestor de visitas',
+    'Gestor de rutas y visitas con GPS',
   ]],
   ['Automaticé', ['Python', 'JavaScript', 'SQL', 'Google Sheets', 'Odoo JSON-RPC'], [
     'Liquidación de nómina automatizada',
@@ -36,7 +35,7 @@ const GROUPS = [
 // Posiciones verticales (px CSS) de cada bloque
 const FOOTER_TECH = ['PYTHON', 'JAVASCRIPT', 'SQL', 'APPS SCRIPT', 'ODOO 17'];
 
-const L = { stats: 368, groups: 496, footer: 1180 };
+const L = { stats: 350, groups: 474, footer: 1138 };
 
 // Línea de tecnologías: palabras separadas por " · "
 const tech = words => `<div class="tech">${words.join('<span class="sep"> · </span>')}</div>`;
