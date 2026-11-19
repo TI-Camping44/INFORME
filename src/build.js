@@ -61,7 +61,6 @@ function page() {
 
   <footer class="footer" style="top:${L.footer}px">
     <div class="role">Responsable de Tecnología</div>
-    <div class="tag">Sistemas y automatización para PyMEs</div>
   </footer>
 
 </main>
