@@ -132,3 +132,7 @@ html, body { width: 1080px; height: 1350px; background: var(--bg); }
 }
 .footer .tech { margin-top: 10px; }
 .tech .sep { word-spacing: -0.3em; } /* espacios de " · " un poco más angostos que la celda mono completa */
+
+/* Mapa: detalle sutil arriba a la derecha */
+.map { position: absolute; }
+.map-label { font-family: "JetBrains Mono", monospace; font-size: 15px; letter-spacing: 0.04em; }
