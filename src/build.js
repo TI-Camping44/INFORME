@@ -11,42 +11,21 @@ const OUT = path.join(SRC, '..', 'output');
 const C = { ivory: '#F3EEE6', gray: '#9AA1AB', gold: '#F2B33D', bg: '#121417',
             box: 'rgba(154,161,171,0.42)' };
 
-const GROUPS = [
-  ['Desarrollé', ['Next.js', 'Supabase', 'PostgreSQL', 'Vercel', 'Apps Script'], [
-    'Intranet de la empresa',
-    'Ticketera de TI con panel web',
-    'Gestor de rutas con GPS para vendedores',
-    '5 tableros de gestión por área',
-  ]],
-  ['Automaticé', ['Python', 'JavaScript', 'SQL', 'Google Sheets', 'Odoo JSON-RPC'], [
-    'Liquidación de salarios: recibos, IPS y banco',
-    'Cálculo de comisiones',
-    'Lista de precios y stock desde Odoo',
-    'Alertas de stock y rotación ABC',
-  ]],
-  ['Integré', ['Odoo 17', 'QWeb', 'XML-RPC', 'SIFEN', 'Google Workspace'], [
-    'Facturación electrónica (SIFEN) en Odoo 17',
-    'Odoo con el e-commerce',
-    'Odoo con Google Workspace vía Apps Script',
-  ]],
+// Tres frases generales: se leen de un vistazo en el feed (el detalle va en el texto del post)
+const STATEMENTS = [
+  ['Desarrollé', 'Herramientas a medida'],
+  ['Automaticé', 'Lo que era manual'],
+  ['Integré', 'Odoo con todo lo demás'],
 ];
 
 // Posiciones verticales (px CSS) de cada bloque
-const FOOTER_TECH = ['PYTHON', 'JAVASCRIPT', 'SQL', 'APPS SCRIPT', 'ODOO 17'];
-
-const L = { stats: 376, groups: 508, footer: 1150 };
-
-// Línea de tecnologías: palabras separadas por " · "
-const tech = words => `<div class="tech">${words.join('<span class="sep"> · </span>')}</div>`;
+const L = { stats: 418, statements: 612, footer: 1128 };
 
 function page() {
-  const groups = GROUPS.map(([title, stack, items]) => `
-    <div class="group">
-      <div class="section-head"><span class="label">${title}</span></div>
-      <ul class="notes">
-        ${items.map(t => `<li><span class="plus">+</span>${t}</li>`).join('\n        ')}
-      </ul>
-      ${tech(stack)}
+  const statements = STATEMENTS.map(([verb, text]) => `
+    <div class="statement">
+      <div class="label">${verb}</div>
+      <div class="phrase">${text}<span class="dot">.</span></div>
     </div>`).join('');
   return `<!doctype html>
 <html lang="es">
@@ -74,16 +53,15 @@ function page() {
     <div class="stat"><div class="num"><span class="dot">+</span>15</div><div class="label">Automatizaciones</div></div>
     <div class="stat"><div class="num">5</div><div class="label">Tableros</div></div>
     <div class="stat"><div class="num">10</div><div class="label">Áreas</div></div>
-    <div class="stat"><div class="num">1</div><div class="label">Persona en IT</div></div>
+    <div class="stat"><div class="num">1</div><div class="label">Persona<br>en IT</div></div>
   </section>
 
-  <section class="content groups" style="top:${L.groups}px">${groups}
+  <section class="content statements" style="top:${L.statements}px">${statements}
   </section>
 
   <footer class="footer" style="top:${L.footer}px">
     <div class="role">Responsable de Tecnología</div>
     <div class="tag">Sistemas y automatización para PyMEs</div>
-    ${tech(FOOTER_TECH)}
   </footer>
 
 </main>
@@ -110,11 +88,11 @@ function page() {
   // --- Verificación: aire entre cada texto/caja y la silueta de la foto ---
   const info = await p.evaluate(() => {
     const img = document.querySelector('.photo').getBoundingClientRect();
-    const els = [...document.querySelectorAll('.content .num, .content .label, .notes li, .tech, .section-head, .footer .role, .footer .tag, .footer')];
+    const els = [...document.querySelectorAll('.content .num, .content .label, .phrase, .statement, .footer .role, .footer .tag, .footer')];
     const boxes = els.map(e => {
       let r = e.getBoundingClientRect();
       // para bloques de texto, medir el ancho real del texto (no el del contenedor)
-      if (e.tagName === 'LI' || e.classList.contains('role') || e.classList.contains('tag') || e.classList.contains('tech')) {
+      if (e.classList.contains('phrase') || e.classList.contains('role') || e.classList.contains('tag')) {
         const range = document.createRange(); range.selectNodeContents(e); r = range.getBoundingClientRect();
       }
       return { name: (e.textContent || e.tagName).trim().slice(0, 40) || e.tagName, x0: r.left, x1: r.right, y0: r.top, y1: r.bottom };
