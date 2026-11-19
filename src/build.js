@@ -43,14 +43,15 @@ const tech = words => `<div class="tech">${words.join('<span class="sep"> · </s
 // ---------- Mapa de Paraguay (forma real: Natural Earth 1:50m, dominio público) ----------
 // Proyección equirectangular con corrección por coseno de la latitud media.
 const MAP = { x: 815, y: 360, k: 25 };   // posición (px CSS) y escala (px por grado)
-function paraguayMap() {
+function paraguayMap(opts = {}) {
+  const M = { ...MAP, ...opts };
   const gj = JSON.parse(fs.readFileSync(path.join(SRC, 'paraguay_ne50m.geojson'), 'utf8'));
   const ring = gj.features[0].geometry.coordinates[0];
   const lons = ring.map(c => c[0]), lats = ring.map(c => c[1]);
   const lonMin = Math.min(...lons), lonMax = Math.max(...lons);
   const latMin = Math.min(...lats), latMax = Math.max(...lats);
   const cos = Math.cos(((latMin + latMax) / 2) * Math.PI / 180);
-  const k = MAP.k;
+  const k = M.k;
   const P = ([lon, lat]) => [(lon - lonMin) * cos * k, (latMax - lat) * k];
   const W = (lonMax - lonMin) * cos * k, H = (latMax - latMin) * k;
   const d = 'M' + ring.map(P).map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join('L') + 'Z';
@@ -63,7 +64,7 @@ function paraguayMap() {
   const cy = (asu[1] + enc[1]) / 2 + (vx / len) * len * 0.22;
   const f = n => n.toFixed(1);
 
-  return `<svg class="map" style="left:${MAP.x}px;top:${MAP.y}px" width="${Math.ceil(W)}" height="${Math.ceil(H)}" viewBox="0 0 ${Math.ceil(W)} ${Math.ceil(H)}" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+  return `<svg class="map" style="left:${M.x}px;top:${M.y}px" width="${Math.ceil(W)}" height="${Math.ceil(H)}" viewBox="0 0 ${Math.ceil(W)} ${Math.ceil(H)}" overflow="visible" xmlns="http://www.w3.org/2000/svg">
     <path d="${d}" fill="none" stroke="${C.gray}" stroke-opacity="0.3" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
     <path d="M${f(enc[0])},${f(enc[1])} Q${f(cx)},${f(cy)} ${f(asu[0])},${f(asu[1])}" fill="none" stroke="${C.gold}" stroke-width="1.25" stroke-dasharray="1.5 4" stroke-linecap="round"/>
     <circle cx="${f(enc[0])}" cy="${f(enc[1])}" r="3" fill="${C.gray}"/>
@@ -129,7 +130,9 @@ function page() {
 `;
 }
 
-(async () => {
+module.exports = { C, GROUPS, tech, paraguayMap };
+
+if (require.main === module) (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const file = path.join(SRC, 'post.html');
   fs.writeFileSync(file, page());
